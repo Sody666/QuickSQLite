@@ -338,10 +338,8 @@
                primaryKey:(const NSString*)primaryKey
                 condition:(const NSString*)where{
     NSString* column = [NSString stringWithFormat:@"count(%@)", primaryKey];
-    QDBValue* value = [QDBValue instanceForObject:@(1) withKey:column];
-    NSArray* contentValues = @[value];
     
-    NSArray* result = [self query:tableName columns:contentValues where:where orderBy:nil limit:nil groupBy:nil];
+    NSArray* result = [self query:tableName columns:@[column] where:where orderBy:nil limit:nil groupBy:nil];
     if(result.count == 0){
         return 0;
     }else{
@@ -370,8 +368,15 @@
     sqlite3_stmt* statement = NULL;
     NSMutableArray* result = [[NSMutableArray alloc] init];
     NSDictionary* row;
+    
+    NSMutableArray* contentValues = [[NSMutableArray alloc] init];
+    for (NSString* key in columns) {
+        [contentValues addObject:[QDBValue instanceWithKey:key]];
+    }
+    
+    
     if([self query:tableName
-           columns:columns
+           columns:contentValues
              where:where
            orderBy:orderBy
              limit:limit
@@ -379,12 +384,35 @@
          statement:&statement]){
         
         
-        while ((row=[QDBValue unbindRowIntoDictionaryWithValues:columns fromStatement:statement]) != nil) {
+        while ((row=[QDBValue unbindRowIntoDictionaryWithValues:contentValues fromStatement:statement]) != nil) {
             [result addObject:row];
         }
     }
     
     return result;
+}
+#pragma mark - transaction
+-(void)beginTransactionWithError:(NSError**)errorOutput{
+    char* error = NULL;
+    
+    if(errorOutput == nil){
+        sqlite3_exec(self.currentDatabase, "BEGIN TRANSACTION", NULL, NULL, NULL);
+    }else{
+        sqlite3_exec(self.currentDatabase, "BEGIN TRANSACTION", NULL, NULL, &error);
+    }
+    
+    if(error != NULL){
+        *errorOutput = [NSError errorWithDomain:@"DBOperation" code:0 userInfo:@{@"reason":[NSString stringWithUTF8String:error]}];
+        
+        sqlite3_free(error);
+    }
+}
+
+-(void)endTransaction{
+    sqlite3_exec(self.currentDatabase, "END TRANSACTION", NULL, NULL, NULL);
+}
+-(void)rollbackTransaction{
+    sqlite3_exec(self.currentDatabase, "ROLLBACK", NULL, NULL, NULL);
 }
 #pragma mark - other functions
 - (void)dealloc

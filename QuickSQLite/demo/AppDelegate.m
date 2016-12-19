@@ -7,8 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "DataCenter.h"
-#import "PersonModel.h"
 
 @interface AppDelegate ()
 

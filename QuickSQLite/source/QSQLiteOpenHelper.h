@@ -9,6 +9,7 @@
 #import <sqlite3.h>
 
 @class QSQLiteOpenHelper;
+@class QDBValue;
 @protocol QSQLiteOpenHelperDelegate <NSObject>
 @optional
 /**
@@ -91,7 +92,7 @@
  *    @return whether query is OK
  */
 -(BOOL)query:(const NSString *)tableName
-     columns:(const NSArray *)columns
+     columns:(const NSArray<QDBValue*> *)columns
        where:(const NSString *)where
      orderBy:(const NSString *)orderBy
        limit:(const NSString *)limit
@@ -107,7 +108,7 @@
  *    @return whether query is OK
  */
 -(BOOL)query:(const NSString *)tableName
-     columns:(const NSArray *)columns
+     columns:(const NSArray<QDBValue*> *)columns
        where:(const NSString *)where
    statement:(sqlite3_stmt **)statement;
 
@@ -176,7 +177,7 @@ contentValues:(const NSArray *)contentValues
  *    @return rows wrapped by dict, keyed by column name.
  */
 -(NSArray*)query:(const NSString *)tableName
-         columns:(const NSArray *)columns
+         columns:(const NSArray<NSString*> *)columns
            where:(const NSString *)where
          orderBy:(const NSString *)orderBy
            limit:(const NSString *)limit
@@ -190,11 +191,50 @@ contentValues:(const NSArray *)contentValues
  *    @return rows wrapped by dict, keyed by column name.
  */
 -(NSArray*)query:(const NSString *)tableName
-         columns:(const NSArray *)columns
+         columns:(const NSArray<NSString*> *)columns
            where:(const NSString *)where;
 #pragma mark - other tools
 /**
  Force database to be closed.
  */
 -(void)close;
+
+#pragma mark - transation series
+
+/**
+ Start the transaction.
+ After transaction, do what ever change action to database as usual.
+ Example:
+ [help beginTransactionWithError:nil];
+ [help insert...];
+ [help update...];
+ [help remove...];
+ [help endTransaction];
+ 
+ 
+ Transactional control commands are only used with the DML 
+ commands INSERT, UPDATE, and DELETE. They can not be used 
+ while creating tables or dropping them because these 
+ operations are automatically committed in the database.
+ Transactions usually persist until the next COMMIT or ROLLBACK 
+ command encountered. But a transaction will also ROLLBACK 
+ if the database is closed or if an error occurs.
+
+ @param errorOutput error if failed. Provide nil if you don't care
+ */
+-(void)beginTransactionWithError:(NSError**)errorOutput;
+
+
+/**
+ End transaction.
+ 
+ Saves all transactions to the database since the last COMMIT or ROLLBACK command.
+ */
+-(void)endTransaction;
+
+
+/**
+ Undo transactions that have not already been saved to the database.
+ */
+-(void)rollbackTransaction;
 @end

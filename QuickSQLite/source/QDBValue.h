@@ -24,6 +24,16 @@
  */
 +(QDBValue*)instanceForObject:(id)object withKey:(const NSString*)key;
 
+
+/**
+ Get instance with key.
+ This should be used while querying data.
+ Data type will be determined when data is fetched.
+
+ @param key key for the content
+ @return instance initialized
+ */
++(QDBValue*)instanceWithKey:(const NSString*)key;
 /**
  *  After query, get the unbinded data.
  *  The type of it is the same as the one in instanceForObject:withKey:

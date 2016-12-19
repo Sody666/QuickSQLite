@@ -24,9 +24,7 @@
 		98FCA7841E03CECC0007A27F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98FCA7821E03CECC0007A27F /* Main.storyboard */; };
 		98FCA7861E03CECC0007A27F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98FCA7851E03CECC0007A27F /* Assets.xcassets */; };
 		98FCA7891E03CECC0007A27F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98FCA7871E03CECC0007A27F /* LaunchScreen.storyboard */; };
-		98FCA7931E03CF640007A27F /* DataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA78F1E03CF640007A27F /* DataCenter.m */; };
 		98FCA7941E03CF640007A27F /* demo.sql in Resources */ = {isa = PBXBuildFile; fileRef = 98FCA7901E03CF640007A27F /* demo.sql */; };
-		98FCA7951E03CF640007A27F /* PersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA7921E03CF640007A27F /* PersonModel.m */; };
 		98FCA7961E03CFAC0007A27F /* QDBValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CB1E0277740007A27F /* QDBValue.m */; };
 		98FCA7971E03CFAC0007A27F /* QSQLiteOpenHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CD1E0277740007A27F /* QSQLiteOpenHelper.m */; };
 		98FCA7981E03CFED0007A27F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 98FCA72E1E028B380007A27F /* libsqlite3.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -83,11 +81,7 @@
 		98FCA7851E03CECC0007A27F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		98FCA7881E03CECC0007A27F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		98FCA78A1E03CECC0007A27F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98FCA78E1E03CF640007A27F /* DataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCenter.h; sourceTree = "<group>"; };
-		98FCA78F1E03CF640007A27F /* DataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCenter.m; sourceTree = "<group>"; };
 		98FCA7901E03CF640007A27F /* demo.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo.sql; sourceTree = "<group>"; };
-		98FCA7911E03CF640007A27F /* PersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonModel.h; sourceTree = "<group>"; };
-		98FCA7921E03CF640007A27F /* PersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
 		98FCA79D1E03D7E90007A27F /* demoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = demoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98FCA7A11E03D7EA0007A27F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98FCA7A71E03D99C0007A27F /* RootTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTestCase.h; sourceTree = "<group>"; };
@@ -197,11 +191,7 @@
 		98FCA7781E03CECC0007A27F /* demo */ = {
 			isa = PBXGroup;
 			children = (
-				98FCA78E1E03CF640007A27F /* DataCenter.h */,
-				98FCA78F1E03CF640007A27F /* DataCenter.m */,
 				98FCA7901E03CF640007A27F /* demo.sql */,
-				98FCA7911E03CF640007A27F /* PersonModel.h */,
-				98FCA7921E03CF640007A27F /* PersonModel.m */,
 				98FCA77C1E03CECC0007A27F /* AppDelegate.h */,
 				98FCA77D1E03CECC0007A27F /* AppDelegate.m */,
 				98FCA77F1E03CECC0007A27F /* ViewController.h */,
@@ -351,10 +341,12 @@
 					};
 					98FCA7761E03CECC0007A27F = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 4TF6TS28RE;
 						ProvisioningStyle = Automatic;
 					};
 					98FCA79C1E03D7E90007A27F = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 4TF6TS28RE;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 98FCA7761E03CECC0007A27F;
 					};
@@ -465,12 +457,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98FCA7951E03CF640007A27F /* PersonModel.m in Sources */,
 				98FCA7961E03CFAC0007A27F /* QDBValue.m in Sources */,
 				98FCA7811E03CECC0007A27F /* ViewController.m in Sources */,
 				98FCA77E1E03CECC0007A27F /* AppDelegate.m in Sources */,
 				98FCA7971E03CFAC0007A27F /* QSQLiteOpenHelper.m in Sources */,
-				98FCA7931E03CF640007A27F /* DataCenter.m in Sources */,
 				98FCA77B1E03CECC0007A27F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -777,6 +767,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4TF6TS28RE;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -829,6 +820,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4TF6TS28RE;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -875,6 +867,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4TF6TS28RE;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -928,6 +921,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4TF6TS28RE;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -987,6 +981,7 @@
 				98FCA78D1E03CECC0007A27F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		98FCA7A41E03D7EA0007A27F /* Build configuration list for PBXNativeTarget "demoTests" */ = {
 			isa = XCConfigurationList;
@@ -995,6 +990,7 @@
 				98FCA7A61E03D7EA0007A27F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -54,14 +54,11 @@
     
     // empty database part
     {
-        NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-        [contentValues addObject:[QDBValue instanceForObject:@"" withKey:kColumnName]];
-        [contentValues addObject:[QDBValue instanceForObject:@(0) withKey:kColumnAge]];
-        [contentValues addObject:[QDBValue instanceForObject:@(NSIntegerMax) withKey:kColumnId]];
+        NSArray* columns = @[kColumnName, kColumnAge, kColumnId];
         
         XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==0, @"应该啥数据都没的");
         XCTAssertFalse([helper isRecordAvailableInTable:kTableName primaryKey:kColumnId condition:nil], @"应该是没记录");
-        XCTAssertTrue([helper query:kTableName columns:contentValues where:nil orderBy:nil limit:nil groupBy:nil].count == 0, @"应该啥数据都没的");
+        XCTAssertTrue([helper query:kTableName columns:columns where:nil orderBy:nil limit:nil groupBy:nil].count == 0, @"应该啥数据都没的");
     }
     // insert part
     {
@@ -112,11 +109,7 @@
         sqlite3_finalize(statement);
         
         
-        contentValues = [[NSMutableArray alloc] init];
-        [contentValues addObject:[QDBValue instanceForObject:@"" withKey:kColumnName]];
-        [contentValues addObject:[QDBValue instanceForObject:@(0) withKey:kColumnAge]];
-        [contentValues addObject:[QDBValue instanceForObject:@(NSIntegerMax) withKey:kColumnId]];
-        NSArray* rows = [helper query:kTableName columns:contentValues where:where orderBy:nil limit:nil groupBy:nil];
+        NSArray* rows = [helper query:kTableName columns:@[kColumnName, kColumnAge, kColumnId] where:where orderBy:nil limit:nil groupBy:nil];
         XCTAssertNotNil(rows, @"查询结果不应该为nil");
         XCTAssertTrue(rows.count == 1);
         NSDictionary* row = rows.firstObject;
@@ -208,6 +201,205 @@
     }
 }
 
+-(void)testTransactionInsert{
+    QSQLiteOpenHelper* helper = TData(@"helper");
+    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==0, @"应该啥数据都没的");
+    
+    NSError* error;
+    [helper beginTransactionWithError:&error];
+    XCTAssertNil(error, @"应该能正常启动存储过程");
+    
+    // insert a record
+    NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
+    [contentValues addObject:[QDBValue instanceForObject:@(1) withKey:kColumnAge]];
+    long long recordId = [helper insert:kTableName contentValues:contentValues];
+    XCTAssertTrue(recordId > 0);
+    // rollback
+    [helper rollbackTransaction];
+    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==0, @"应该啥数据都没的");
+    
+    // start transaction again
+    error = nil;
+    [helper beginTransactionWithError:&error];
+    XCTAssertNil(error, @"应该能正常启动存储过程");
+    // insert a record
+    contentValues = [[NSMutableArray alloc] init];
+    [contentValues addObject:[QDBValue instanceForObject:@"Bob" withKey:kColumnName]];
+    recordId = [helper insert:kTableName contentValues:contentValues];
+    XCTAssertTrue(recordId > 0);
+    [helper endTransaction];
+    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]== 1, @"应该有一条数据");
+
+    NSString* where = [NSString stringWithFormat:@"%@=%lld", kColumnId, recordId];
+    NSArray* rows = [helper query:kTableName columns:@[kColumnName] where:where];
+    XCTAssertTrue(rows.count == 1);
+    NSDictionary* result = rows.firstObject;
+    XCTAssertTrue([result isKindOfClass:[NSDictionary class]]);
+    XCTAssertTrue([@"Bob" isEqualToString:result[kColumnName]]);
+}
+
+-(void)testTransactionUpdate{
+    QSQLiteOpenHelper* helper = TData(@"helper");
+    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==0, @"应该啥数据都没的");
+    
+    // insert the value
+    NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
+    [contentValues addObject:[QDBValue instanceForObject:@"Cindy" withKey:kColumnName]];
+    long long recordId = [helper insert:kTableName contentValues:contentValues];
+    XCTAssertTrue(recordId > 0);
+    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]== 1, @"应该有一条数据");
+    
+    NSString* where = [NSString stringWithFormat:@"%@=%lld", kColumnId, recordId];
+    
+    NSError* error;
+    [helper beginTransactionWithError:&error];
+    XCTAssertNil(error, @"应该能正常启动存储过程");
+    
+    // update a record
+    contentValues = [[NSMutableArray alloc] init];
+    [contentValues addObject:[QDBValue instanceForObject:@"David" withKey:kColumnName]];
+    
+    
+    XCTAssertTrue([helper update:kTableName contentValues:contentValues where:where] == 1);
+    // rollback
+    [helper rollbackTransaction];
+    
+    // confirm the record is not updated
+    NSArray* rows = [helper query:kTableName columns:@[kColumnName] where:where];
+    XCTAssertTrue(rows.count == 1);
+    NSDictionary* result = rows.firstObject;
+    XCTAssertTrue([result isKindOfClass:[NSDictionary class]]);
+    XCTAssertTrue([@"Cindy" isEqualToString:result[kColumnName]]);
+    
+    
+    // begin transaction again
+    error = nil;
+    [helper beginTransactionWithError:&error];
+    XCTAssertNil(error, @"应该能正常启动存储过程");
+    contentValues = [[NSMutableArray alloc] init];
+    [contentValues addObject:[QDBValue instanceForObject:@"David" withKey:kColumnName]];
+    // update the record
+    XCTAssertTrue([helper update:kTableName contentValues:contentValues where:where] == 1);
+    // commit change
+    [helper endTransaction];
+    
+    // confirm the record is updated
+    contentValues = [[NSMutableArray alloc] init];
+    [contentValues addObject:[QDBValue instanceForObject:@"" withKey:kColumnName]];
+    rows = [helper query:kTableName columns:@[kColumnName] where:where];
+    XCTAssertTrue(rows.count == 1);
+    result = rows.firstObject;
+    XCTAssertTrue([result isKindOfClass:[NSDictionary class]]);
+    XCTAssertTrue([@"David" isEqualToString:result[kColumnName]]);
+}
+
+
+-(void)testTransactionDelete{
+    QSQLiteOpenHelper* helper = TData(@"helper");
+    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==0, @"应该啥数据都没的");
+    
+    // insert the value
+    NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
+    [contentValues addObject:[QDBValue instanceForObject:@"Cindy" withKey:kColumnName]];
+    long long recordId = [helper insert:kTableName contentValues:contentValues];
+    XCTAssertTrue(recordId > 0);
+    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]== 1, @"应该有一条数据");
+    
+    NSString* where = [NSString stringWithFormat:@"%@=%lld", kColumnId, recordId];
+    
+    NSError* error;
+    [helper beginTransactionWithError:&error];
+    XCTAssertNil(error, @"应该能正常启动存储过程");
+    XCTAssertTrue([helper remove:kTableName where:where] == 1);
+    // rollback
+    [helper rollbackTransaction];
+    
+    // confirm the record is not updated
+    NSArray* rows = [helper query:kTableName columns:@[kColumnName] where:where];
+    XCTAssertTrue(rows.count == 1);
+    NSDictionary* result = rows.firstObject;
+    XCTAssertTrue([result isKindOfClass:[NSDictionary class]]);
+    XCTAssertTrue([@"Cindy" isEqualToString:result[kColumnName]]);
+    
+    
+    // begin transaction again
+    error = nil;
+    [helper beginTransactionWithError:&error];
+    XCTAssertNil(error, @"应该能正常启动存储过程");
+    XCTAssertTrue([helper remove:kTableName where:where] == 1);
+    // commit change
+    [helper endTransaction];
+    
+    // confirm the record is updated
+    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:where] == 0);
+}
+
+-(void)testTransactionConflict{
+    QSQLiteOpenHelper* helper = TData(@"helper");
+    
+    // insert the value
+    NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
+    [contentValues addObject:[QDBValue instanceForObject:@"Cindy" withKey:kColumnName]];
+    long long recordId = [helper insert:kTableName contentValues:contentValues];
+    XCTAssertTrue(recordId > 0);
+    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]== 1, @"应该有一条数据");
+    
+    NSString* where = [NSString stringWithFormat:@"%@=%lld", kColumnId, recordId];
+    
+    
+    NSError* error;
+    [helper beginTransactionWithError:&error];
+    XCTAssertNil(error, @"应该能正常启动存储过程");
+    contentValues = [[NSMutableArray alloc] init];
+    [contentValues addObject:[QDBValue instanceForObject:@"Cindy" withKey:kColumnName]];
+    recordId = [helper insert:kTableName contentValues:contentValues];
+    where = [NSString stringWithFormat:@"%@=%lld", kColumnId, recordId];
+    
+    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:where]== 1, @"应该有一条数据");
+    
+    [helper rollbackTransaction];
+    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:where]== 0, @"应该没有数据");
+}
+
+//// 0.1978s
+//- (void)testTransactionPerformance {
+//    QSQLiteOpenHelper* helper = TData(@"helper");
+//    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil] == 0);
+//    
+//    NSMutableArray* contentValues = [[NSMutableArray alloc] init];
+//    NSDate* currentDate = [NSDate date];
+//    [helper beginTransactionWithError:nil];
+//    for(int i=0; i< 10000; i++){
+//        [contentValues removeAllObjects];
+//        [contentValues addObject:[QDBValue instanceForObject:@(i) withKey:kColumnAge]];
+//        [helper insert:kTableName contentValues:contentValues];
+//    }
+//    [helper endTransaction];
+//    NSLog(@"Seconds: %f.2", [NSDate date].timeIntervalSince1970 - currentDate.timeIntervalSince1970);
+//    
+//    long recordCount = [helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil];
+//    NSLog(@"Record count: %ld", recordCount);
+//    XCTAssertTrue(recordCount == 10000, @"应该有一万份记录");
+//}
+//
+//// 36.05s
+//- (void)testNormalPerformance {
+//    QSQLiteOpenHelper* helper = TData(@"helper");
+//    NSMutableArray* contentValues = [[NSMutableArray alloc] init];
+//    NSDate* currentDate = [NSDate date];
+//    
+//    for(int i=0; i< 10000; i++){
+//        [contentValues removeAllObjects];
+//        [contentValues addObject:[QDBValue instanceForObject:@(i) withKey:kColumnAge]];
+//        [helper insert:kTableName contentValues:contentValues];
+//    }
+//    
+//    NSLog(@"Seconds: %f.2", [NSDate date].timeIntervalSince1970 - currentDate.timeIntervalSince1970);
+//    long recordCount = [helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil];
+//    NSLog(@"Record count: %ld", recordCount);
+//    XCTAssertTrue(recordCount == 10000, @"应该有一万份记录");
+//}
+
 #pragma mark - toolkits
 -(NSDictionary*)insertPersonWithAge:(NSNumber*)age height:(NSNumber*)height{
     QSQLiteOpenHelper* helper = TData(@"helper");
@@ -218,7 +410,7 @@
     XCTAssertTrue( recordId > 0);
     
     NSString* where = [NSString stringWithFormat:@"%@=%lld", kColumnId, recordId];
-    NSArray* rows = [helper query:kTableName columns:contentValues where:where];
+    NSArray* rows = [helper query:kTableName columns:@[kColumnAge, kColumnHeight] where:where];
     XCTAssertTrue(rows.count == 1);
     NSDictionary* result = rows.firstObject;
     XCTAssertTrue([result isKindOfClass:[NSDictionary class]]);
@@ -233,7 +425,7 @@
     XCTAssertTrue( recordId > 0);
     
     NSString* where = [NSString stringWithFormat:@"%@=%lld", kColumnId, recordId];
-    NSArray* rows = [helper query:kTableName columns:contentValues where:where];
+    NSArray* rows = [helper query:kTableName columns:@[kColumnAvatar] where:where];
     XCTAssertTrue(rows.count == 1);
     NSDictionary* result = rows.firstObject;
     XCTAssertTrue([result isKindOfClass:[NSDictionary class]]);

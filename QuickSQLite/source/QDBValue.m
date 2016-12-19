@@ -7,10 +7,12 @@
 
 #import "QDBValue.h"
 typedef enum : NSUInteger {
-    QDBDataTypeInteger = 0,
+    QDBDataTypeUnknown  = 0,
+    QDBDataTypeInteger,
     QDBDataTypeDouble,
     QDBDataTypeText,
     QDBDataTypeBlob,
+    
 } QDBDataType;
 
 @interface QDBValue ()
@@ -27,7 +29,7 @@ typedef enum : NSUInteger {
     
     QDBValue* content = [[QDBValue alloc] init];
     content.contentData = object;
-    content.key = key;
+    content.key = [key copy];
     
     if([object isKindOfClass:[NSNumber class]]){
         const char* valueType = ((NSNumber*)object).objCType;
@@ -44,6 +46,18 @@ typedef enum : NSUInteger {
     
     
 
+    return content;
+}
+
++(QDBValue*)instanceWithKey:(const NSString*)key{
+    if(key.length == 0){
+        return nil;
+    }
+    
+    QDBValue* content = [[QDBValue alloc] init];
+    content.key = [key copy];
+    content.dataType = QDBDataTypeUnknown;
+    
     return content;
 }
 
@@ -109,6 +123,23 @@ typedef enum : NSUInteger {
 
 - (void)unbindValueFromStatment:(sqlite3_stmt *)stmt atIndex:(int)index
 {
+    if(self.dataType == QDBDataTypeUnknown){
+        switch (sqlite3_column_type(stmt, index)) {
+            case SQLITE_INTEGER:
+                self.dataType = QDBDataTypeInteger;
+                break;
+            case SQLITE_FLOAT:
+                self.dataType = QDBDataTypeDouble;
+                break;
+            case SQLITE_BLOB:
+                self.dataType = QDBDataTypeBlob;
+                break;
+            case SQLITE_TEXT:
+                self.dataType = QDBDataTypeText;
+                break;
+        }
+    }
+    
     switch (self.dataType) {
         case QDBDataTypeInteger:
             self.contentData = [NSNumber numberWithInt:sqlite3_column_int(stmt, index)];

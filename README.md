@@ -9,19 +9,21 @@ Quick SQLite项目的目标是简化iOS环境中sqlite数据库的使用，免�
 ```objective-c
 // 插入数据
 {
-	NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-	[contentValues addObject:[QDBValue instanceForObject:@(21) withKey:kColumnAge]];
-	[contentValues addObject:[QDBValue instanceForObject:@(175) withKey:kColumnHeight]];
-	long long recordId = [helper insert:kTableName contentValues:contentValues];
+	NSDictionary* values = @{
+					kColumnAge:@(21),
+					kColumnHeight:@(175),
+				};
+	long long recordId = [helper insert:kTableName values:values];
 }
 // 更新数据
 {
-	NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:@"Bob" withKey:kColumnName]];
-    [contentValues addObject:[QDBValue instanceForObject:@(19) withKey:kColumnAge]];
+	NSDictionary* values = @{
+					kColumnName:@"Bob",
+					kColumnAge:@(19),
+				};
         
     NSString* where = [NSString stringWithFormat:@"%@==1", kColumnId];
-    long affactedCount = [helper update:kTableName contentValues:contentValues where:where];
+    long affactedCount = [helper update:kTableName values:values where:where];
 }
 // 查询数据
 {
@@ -30,12 +32,15 @@ Quick SQLite项目的目标是简化iOS环境中sqlite数据库的使用，免�
 	// 将返回 [{"name":"Bob"}]
 }
 // 存储过程
+// 如果要插入大量数据，用这种方法，带来的性能提升是非常惊艳的
 {
 	[helper beginTransactionWithError:nil];
     // insert a record
-    contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:@"Bob" withKey:kColumnName]];
-    recordId = [helper insert:kTableName contentValues:contentValues];
+    NSDictionary* values = @{
+					kColumnAge:@(21),
+					kColumnHeight:@(175),
+				};
+    recordId = [helper insert:kTableName values:values];
 	// 这里还可以做千千万万的插入、更新、删除操作
     [helper endTransaction];
 }

@@ -61,6 +61,15 @@ typedef enum : NSUInteger {
     return content;
 }
 
++(NSArray*)valuesWithDictionary:(const NSDictionary*)keyValues{
+    NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:keyValues.count];
+    for (NSString* key in keyValues) {
+        [result addObject:[self instanceForObject:keyValues[key] withKey:key]];
+    }
+    
+    return [result copy];
+}
+
 +(void)mappingContentValues:(const NSArray*)contentValues
                       query:(NSString**)queryOutput
                      update:(NSString**)updateOutput

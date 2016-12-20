@@ -15,9 +15,8 @@
 		98FCA72A1E028ADF0007A27F /* QSQLiteOpenHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CD1E0277740007A27F /* QSQLiteOpenHelper.m */; };
 		98FCA72B1E028AE80007A27F /* QDBValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CB1E0277740007A27F /* QDBValue.m */; };
 		98FCA72C1E028AE80007A27F /* QSQLiteOpenHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CD1E0277740007A27F /* QSQLiteOpenHelper.m */; };
-		98FCA72F1E028B380007A27F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 98FCA72E1E028B380007A27F /* libsqlite3.tbd */; };
 		98FCA7311E02A25C0007A27F /* QSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA7301E02A25C0007A27F /* QSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		98FCA7621E03B5B30007A27F /* QuickSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA7121E0279DB0007A27F /* QuickSQLite.h */; };
+		98FCA7621E03B5B30007A27F /* QuickSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA7121E0279DB0007A27F /* QuickSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98FCA77B1E03CECC0007A27F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA77A1E03CECC0007A27F /* main.m */; };
 		98FCA77E1E03CECC0007A27F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA77D1E03CECC0007A27F /* AppDelegate.m */; };
 		98FCA7811E03CECC0007A27F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA7801E03CECC0007A27F /* ViewController.m */; };
@@ -96,7 +95,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98FCA72F1E028B380007A27F /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,8 +564,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = quickSQLite.framework;
@@ -625,8 +624,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = quickSQLite.framework;

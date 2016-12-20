@@ -46,6 +46,14 @@
 
 
 /**
+ Prepare an array of values with a dictionary
+
+ @param keyValues input key value pair
+ @return prepared values
+ */
++(NSArray*)valuesWithDictionary:(const NSDictionary*)keyValues;
+
+/**
  Mapping the content value for query string.
  Note: if you don't need some kinds of format, just provide nil.
        for example, set updateOutput and insertOutput to nil if you want

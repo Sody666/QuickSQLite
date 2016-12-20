@@ -7,8 +7,7 @@
 //
 
 #import "RootTestCase.h"
-#import "QSQLiteOpenHelper.h"
-#import "QDBValue.h"
+#import "QSQLite.h"
 
 #define kTableName @"person"
 
@@ -63,44 +62,46 @@
     // insert part
     {
         // insert first record
-        NSMutableArray* contentValues = [[NSMutableArray alloc] init];
-        [contentValues addObject:[QDBValue instanceForObject:@"Alice" withKey:kColumnName]];
-        [contentValues addObject:[QDBValue instanceForObject:@(21) withKey:kColumnAge]];
-        XCTAssertTrue([helper insert:kTableName contentValues:contentValues] == 1, @"插入的数据的Primary key应该为1");
+        NSDictionary* values = @{
+                                 kColumnName:@"Alice",
+                                 kColumnAge:@(21)
+                                 };
+        XCTAssertTrue([helper insert:kTableName values:values] == 1, @"插入的数据的Primary key应该为1");
         XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==1, @"数据库应该有且仅有一条数据");
         
         // insert second record
-        [contentValues removeAllObjects];
-        [contentValues addObject:[QDBValue instanceForObject:@"Cindy" withKey:kColumnName]];
-        [contentValues addObject:[QDBValue instanceForObject:@(22) withKey:kColumnAge]];
-        XCTAssertTrue([helper insert:kTableName contentValues:contentValues] == 2, @"插入的数据的Primary key应该为2");
+        values = @{
+                   kColumnName:@"Cindy",
+                   kColumnAge:@(22)
+                   };
+        XCTAssertTrue([helper insert:kTableName values:values] == 2, @"插入的数据的Primary key应该为2");
         XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==2, @"数据库应该有且仅有两条数据");
         
         // insert 3rd record with specified id
-        [contentValues removeAllObjects];
-        [contentValues addObject:[QDBValue instanceForObject:@"Dick" withKey:kColumnName]];
-        [contentValues addObject:[QDBValue instanceForObject:@(27) withKey:kColumnAge]];
-        [contentValues addObject:[QDBValue instanceForObject:@(10) withKey:kColumnId]];
-        XCTAssertTrue([helper insert:kTableName contentValues:contentValues] == 10, @"插入的数据的Primary key应该为10");
+        values = @{
+                   kColumnName:@"Dick",
+                   kColumnAge:@(27),
+                   kColumnId:@(10),
+                   };
+        XCTAssertTrue([helper insert:kTableName values:values] == 10, @"插入的数据的Primary key应该为10");
         XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==3, @"数据库应该有且仅有两条数据");
         
         // insert 4th record without id
-        [contentValues removeAllObjects];
-        [contentValues addObject:[QDBValue instanceForObject:@"Emily" withKey:kColumnName]];
-        [contentValues addObject:[QDBValue instanceForObject:@(27) withKey:kColumnAge]];
-        XCTAssertTrue([helper insert:kTableName contentValues:contentValues] == 11, @"插入的数据的Primary key应该为11");
+        values = @{
+                   kColumnName:@"Emily",
+                   kColumnAge:@(27),
+                   };
+        
+        XCTAssertTrue([helper insert:kTableName values:values] == 11, @"插入的数据的Primary key应该为11");
         XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==4, @"数据库应该有且仅有两条数据");
     }
     
     // query part
     {
-        NSString* where = [NSString stringWithFormat:@"%@==1", kColumnId];
-        NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-        [contentValues addObject:[QDBValue instanceForObject:@"" withKey:kColumnName]];
-        [contentValues addObject:[QDBValue instanceForObject:@(0) withKey:kColumnAge]];
-        [contentValues addObject:[QDBValue instanceForObject:@(NSIntegerMax) withKey:kColumnId]];
+        NSString* where = QSTR(@"%@==1", kColumnId);
         sqlite3_stmt* statement = NULL;
-        XCTAssertTrue([helper query:kTableName columns:contentValues where:where orderBy:nil limit:nil groupBy:nil statement:&statement], @"查询应该要成功");
+        NSArray<QDBValue*>* contentValues = [helper query:kTableName columns:@[kColumnName, kColumnAge, kColumnId] where:where statement:&statement];
+        XCTAssertTrue(contentValues != nil, @"查询应该要成功");
         XCTAssertTrue([QDBValue unbindRowIntoValues:contentValues fromStatement:statement], @"第一次取数据应该要成功");
         XCTAssertTrue([@"Alice" isEqualToString:[contentValues[0] value]], @"取到的名称应该跟保存的一致");
         XCTAssertTrue(((NSNumber*)[contentValues[1] value]).intValue == 21, @"取到的年龄应该要一致");
@@ -125,21 +126,20 @@
         NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
         [contentValues addObject:[QDBValue instanceForObject:@"Bob" withKey:kColumnName]];
         [contentValues addObject:[QDBValue instanceForObject:@(19) withKey:kColumnAge]];
-        
-        NSString* where = [NSString stringWithFormat:@"%@==1", kColumnId];
-        XCTAssertTrue([helper update:kTableName contentValues:contentValues where:where], @"更新应该要成功");
+        NSDictionary* values = @{
+                                 kColumnName:@"Bob",
+                                 kColumnAge:@(19),
+                                 };
+        XCTAssertTrue([helper update:kTableName values:values where:QSTR(@"%@==1", kColumnId)], @"更新应该要成功");
     }
     
     // query confirm part
     {
         // by id
-        NSString* where = [NSString stringWithFormat:@"%@==1", kColumnId];
-        NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-        [contentValues addObject:[QDBValue instanceForObject:@"" withKey:kColumnName]];
-        [contentValues addObject:[QDBValue instanceForObject:@(0) withKey:kColumnAge]];
-        [contentValues addObject:[QDBValue instanceForObject:@(NSIntegerMax) withKey:kColumnId]];
+        NSString* where = QSTR(@"%@==1", kColumnId);
         sqlite3_stmt* statement = NULL;
-        XCTAssertTrue([helper query:kTableName columns:contentValues where:where orderBy:nil limit:nil groupBy:nil statement:&statement], @"查询应该要成功");
+        NSArray<QDBValue*>* contentValues = [helper query:kTableName columns:@[kColumnName, kColumnAge, kColumnId] where:where orderBy:nil limit:nil groupBy:nil statement:&statement];
+        XCTAssertTrue(contentValues != nil, @"查询应该要成功");
         XCTAssertTrue([QDBValue unbindRowIntoValues:contentValues fromStatement:statement], @"第一次取数据应该要成功");
         XCTAssertTrue([@"Bob" isEqualToString:[contentValues[0] value]], @"取到的名称应该跟保存的一致");
         XCTAssertTrue(((NSNumber*)[contentValues[1] value]).intValue == 19, @"取到的年龄应该要一致");
@@ -147,13 +147,10 @@
         XCTAssertFalse([QDBValue unbindRowIntoValues:contentValues fromStatement:statement], @"第二次取数据不应该成功");
         sqlite3_finalize(statement);
         
-        where = [NSString stringWithFormat:@"%@=='Dick'", kColumnName];
-        contentValues = [[NSMutableArray alloc] init];
-        [contentValues addObject:[QDBValue instanceForObject:@"" withKey:kColumnName]];
-        [contentValues addObject:[QDBValue instanceForObject:@(0) withKey:kColumnAge]];
-        [contentValues addObject:[QDBValue instanceForObject:@(NSIntegerMax) withKey:kColumnId]];
+        where = QSTR(@"%@=='Dick'", kColumnName);
         statement = NULL;
-        XCTAssertTrue([helper query:kTableName columns:contentValues where:where orderBy:nil limit:nil groupBy:nil statement:&statement], @"查询应该要成功");
+        contentValues = [helper query:kTableName columns:@[kColumnName, kColumnAge, kColumnId] where:where orderBy:nil limit:nil groupBy:nil statement:&statement];
+        XCTAssertTrue(contentValues != nil, @"查询应该要成功");
         XCTAssertTrue([QDBValue unbindRowIntoValues:contentValues fromStatement:statement], @"第一次取数据应该要成功");
         XCTAssertTrue([@"Dick" isEqualToString:[contentValues[0] value]], @"取到的名称应该跟保存的一致");
         XCTAssertTrue(((NSNumber*)[contentValues[1] value]).intValue == 27, @"取到的年龄应该要一致");
@@ -210,9 +207,7 @@
     XCTAssertNil(error, @"应该能正常启动存储过程");
     
     // insert a record
-    NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:@(1) withKey:kColumnAge]];
-    long long recordId = [helper insert:kTableName contentValues:contentValues];
+    long long recordId = [helper insert:kTableName values:@{kColumnAge:@(1)}];
     XCTAssertTrue(recordId > 0);
     // rollback
     [helper rollbackTransaction];
@@ -223,9 +218,7 @@
     [helper beginTransactionWithError:&error];
     XCTAssertNil(error, @"应该能正常启动存储过程");
     // insert a record
-    contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:@"Bob" withKey:kColumnName]];
-    recordId = [helper insert:kTableName contentValues:contentValues];
+    recordId = [helper insert:kTableName values:@{kColumnName:@"Bob"}];
     XCTAssertTrue(recordId > 0);
     [helper endTransaction];
     XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]== 1, @"应该有一条数据");
@@ -243,9 +236,7 @@
     XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==0, @"应该啥数据都没的");
     
     // insert the value
-    NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:@"Cindy" withKey:kColumnName]];
-    long long recordId = [helper insert:kTableName contentValues:contentValues];
+    long long recordId = [helper insert:kTableName values:@{kColumnName:@"Cindy"}];
     XCTAssertTrue(recordId > 0);
     XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]== 1, @"应该有一条数据");
     
@@ -256,11 +247,7 @@
     XCTAssertNil(error, @"应该能正常启动存储过程");
     
     // update a record
-    contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:@"David" withKey:kColumnName]];
-    
-    
-    XCTAssertTrue([helper update:kTableName contentValues:contentValues where:where] == 1);
+    XCTAssertTrue([helper update:kTableName values:@{kColumnName:@"David"} where:where] == 1);
     // rollback
     [helper rollbackTransaction];
     
@@ -276,16 +263,12 @@
     error = nil;
     [helper beginTransactionWithError:&error];
     XCTAssertNil(error, @"应该能正常启动存储过程");
-    contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:@"David" withKey:kColumnName]];
     // update the record
-    XCTAssertTrue([helper update:kTableName contentValues:contentValues where:where] == 1);
+    XCTAssertTrue([helper update:kTableName values:@{kColumnName:@"David"} where:where] == 1);
     // commit change
     [helper endTransaction];
     
     // confirm the record is updated
-    contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:@"" withKey:kColumnName]];
     rows = [helper query:kTableName columns:@[kColumnName] where:where];
     XCTAssertTrue(rows.count == 1);
     result = rows.firstObject;
@@ -299,9 +282,7 @@
     XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==0, @"应该啥数据都没的");
     
     // insert the value
-    NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:@"Cindy" withKey:kColumnName]];
-    long long recordId = [helper insert:kTableName contentValues:contentValues];
+    long long recordId = [helper insert:kTableName values:@{kColumnName:@"Cindy"}];
     XCTAssertTrue(recordId > 0);
     XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]== 1, @"应该有一条数据");
     
@@ -338,9 +319,7 @@
     QSQLiteOpenHelper* helper = TData(@"helper");
     
     // insert the value
-    NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:@"Cindy" withKey:kColumnName]];
-    long long recordId = [helper insert:kTableName contentValues:contentValues];
+    long long recordId = [helper insert:kTableName values:@{kColumnName:@"Cindy"}];
     XCTAssertTrue(recordId > 0);
     XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]== 1, @"应该有一条数据");
     
@@ -350,9 +329,7 @@
     NSError* error;
     [helper beginTransactionWithError:&error];
     XCTAssertNil(error, @"应该能正常启动存储过程");
-    contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:@"Cindy" withKey:kColumnName]];
-    recordId = [helper insert:kTableName contentValues:contentValues];
+    recordId = [helper insert:kTableName values:@{kColumnName:@"Cindy"}];
     where = [NSString stringWithFormat:@"%@=%lld", kColumnId, recordId];
     
     XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:where]== 1, @"应该有一条数据");
@@ -403,10 +380,11 @@
 #pragma mark - toolkits
 -(NSDictionary*)insertPersonWithAge:(NSNumber*)age height:(NSNumber*)height{
     QSQLiteOpenHelper* helper = TData(@"helper");
-    NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:age withKey:kColumnAge]];
-    [contentValues addObject:[QDBValue instanceForObject:height withKey:kColumnHeight]];
-    long long recordId = [helper insert:kTableName contentValues:contentValues];
+    NSDictionary* values = @{
+                             kColumnAge:age,
+                             kColumnHeight:height
+                             };
+    long long recordId = [helper insert:kTableName values:values];
     XCTAssertTrue( recordId > 0);
     
     NSString* where = [NSString stringWithFormat:@"%@=%lld", kColumnId, recordId];
@@ -419,9 +397,7 @@
 
 -(NSDictionary*)insertPersonWithAvatar:(NSData*)imageData{
     QSQLiteOpenHelper* helper = TData(@"helper");
-    NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-    [contentValues addObject:[QDBValue instanceForObject:imageData withKey:kColumnAvatar]];
-    long long recordId = [helper insert:kTableName contentValues:contentValues];
+    long long recordId = [helper insert:kTableName values:@{kColumnAvatar:imageData}];
     XCTAssertTrue( recordId > 0);
     
     NSString* where = [NSString stringWithFormat:@"%@=%lld", kColumnId, recordId];

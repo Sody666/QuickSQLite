@@ -16,4 +16,4 @@ FOUNDATION_EXPORT const unsigned char frameworkVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <framework/PublicHeader.h>
 
-#import <framework/QSQLite.h>
+#import <QuickSQLite/QSQLite.h>

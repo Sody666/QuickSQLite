@@ -82,17 +82,23 @@
 - (id)initWithName:(NSString *)name version:(int)version openDelegate:(id)delegate;
 #pragma mark - traditional sql interface
 /**
- *    Do a query on the database.
- *    @param tableName table where the query happens
- *    @param columns columns for query
- *    @param where where condition
- *    @param orderBy orderBy condition
- *    @param limit limit condition
- *    @param statement statement to bind to
- *    @return whether query is OK
+ Do query on the table. This api should be use if 
+ the result is quite large, because you can 'draw' 
+ the data little by little, for your need.
+ 
+ Else you can use the one without statement.
+
+ @param tableName target table
+ @param columns columns you want to select
+ @param where where condition
+ @param orderBy order by condition
+ @param limit limit condition
+ @param groupBy group by condition
+ @param statement statement to unbind data
+ @return array the QDBValue where you can unbind data. nil if failed.
  */
--(BOOL)query:(const NSString *)tableName
-     columns:(const NSArray<QDBValue*> *)columns
+-(NSArray<QDBValue*>*)query:(const NSString *)tableName
+     columns:(const NSArray<NSString*> *)columns
        where:(const NSString *)where
      orderBy:(const NSString *)orderBy
        limit:(const NSString *)limit
@@ -100,37 +106,42 @@
    statement:(sqlite3_stmt **)statement;
 
 /**
- *    Do a query on the database.
- *    @param tableName table where the query happens
- *    @param columns columns for query
- *    @param where where condition
- *    @param statement statement to bind to
- *    @return whether query is OK
+ Do query on the table. This api should be use if
+ the result is quite large, because you can 'draw'
+ the data little by little, for your need.
+ 
+ Else you can use the one without statement.
+ 
+ @param tableName target table
+ @param columns columns you want to select
+ @param where where condition
+ @param statement statement to unbind data
+ @return array the QDBValue where you can unbind data. nil if failed.
  */
--(BOOL)query:(const NSString *)tableName
-     columns:(const NSArray<QDBValue*> *)columns
+-(NSArray<QDBValue*>*)query:(const NSString *)tableName
+     columns:(const NSArray<NSString*> *)columns
        where:(const NSString *)where
    statement:(sqlite3_stmt **)statement;
 
 /**
  *    Update records with condition.
  *    @param tableName table where the query happens
- *    @param contentValues updating values
+ *    @param values updating values
  *    @param where where condition
  *    @return count of record affected
  */
 -(long)update:(const NSString *)tableName
-contentValues:(const NSArray *)contentValues
+       values:(const NSDictionary*)values
         where:(const NSString *)where;
 
 /**
  *    Insert a value.
  *    @param tableName table where the query happens
- *    @param contentValues inserting value
+ *    @param values inserting value
  *    @return primary id of record saved
  */
 -(long long)insert:(const NSString *)tableName
-     contentValues:(const NSArray *)contentValues;
+            values:(const NSDictionary*)values;
 
 /**
  *    remove values
@@ -176,7 +187,7 @@ contentValues:(const NSArray *)contentValues
  *    @param limit limit condition
  *    @return rows wrapped by dict, keyed by column name.
  */
--(NSArray*)query:(const NSString *)tableName
+-(NSArray<NSDictionary*>*)query:(const NSString *)tableName
          columns:(const NSArray<NSString*> *)columns
            where:(const NSString *)where
          orderBy:(const NSString *)orderBy
@@ -190,7 +201,7 @@ contentValues:(const NSArray *)contentValues
  *    @param where where condition
  *    @return rows wrapped by dict, keyed by column name.
  */
--(NSArray*)query:(const NSString *)tableName
+-(NSArray<NSDictionary*>*)query:(const NSString *)tableName
          columns:(const NSArray<NSString*> *)columns
            where:(const NSString *)where;
 #pragma mark - other tools

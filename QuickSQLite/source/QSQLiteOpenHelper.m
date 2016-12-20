@@ -66,10 +66,25 @@
     NSString    * tempFullPath = [NSString stringWithFormat:@"%@tmp", fullPath];
     NSFileManager* fileManager = [NSFileManager defaultManager];
     
+    
+    // try to open sandbox database
+    if ([fileManager fileExistsAtPath:fullPath]) {
+        if (sqlite3_open([fullPath UTF8String], &sandboxDB) != SQLITE_OK) {
+            @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Failed to open sandbox database file" userInfo:nil];
+        }
+        
+        if(self.databaseVersion <= [self versionForDatabase:sandboxDB]){
+            // everything is OK.
+            // No need to do any creating or upgrading job
+            CLOSE_DB(sandboxDB);
+            return;
+        }
+    }
+    
     // try to open bundle database
     if([self.openDelegate respondsToSelector:@selector(pathToCopyBundleDBFileForSQLiteOpenHelper:withName:)]){
         NSString* bundleDBPath = [self.openDelegate pathToCopyBundleDBFileForSQLiteOpenHelper:self
-                                                                           withName:self.databaseName];
+                                                                                     withName:self.databaseName];
         
         if(bundleDBPath.length > 0){
             if(![fileManager fileExistsAtPath:bundleDBPath]){
@@ -83,13 +98,6 @@
             }
         }
     }
-
-    // try to open sandbox database
-    if ([fileManager fileExistsAtPath:fullPath]) {
-        if (sqlite3_open([fullPath UTF8String], &sandboxDB) != SQLITE_OK) {
-            @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Failed to open sandbox database file" userInfo:nil];
-        }
-    }
     
     // validating database
     if(sandboxDB != NULL && bundleDB != NULL) {
@@ -97,23 +105,25 @@
         int bundleVersion = [self versionForDatabase:bundleDB];
         int sandboxVersion = [self versionForDatabase:sandboxDB];
         
-        if([self.openDelegate respondsToSelector:@selector(SQLiteOpenHelper:copyingBundleDB:withVersion:fromOldDB:withVersion:)]){
-            if([self.openDelegate SQLiteOpenHelper:self copyingBundleDB:bundleDB withVersion:bundleVersion fromOldDB:sandboxDB withVersion:sandboxVersion]){
-                CLOSE_DB(sandboxDB);
-                CLOSE_DB(bundleDB);
-                [fileManager removeItemAtPath:fullPath error:nil];
-                [fileManager moveItemAtPath:tempFullPath toPath:fullPath error:nil];
+        if(bundleVersion > sandboxVersion){
+            if([self.openDelegate respondsToSelector:@selector(SQLiteOpenHelper:copyingBundleDB:withVersion:fromOldDB:withVersion:)]){
+                if([self.openDelegate SQLiteOpenHelper:self copyingBundleDB:bundleDB withVersion:bundleVersion fromOldDB:sandboxDB withVersion:sandboxVersion]){
+                    CLOSE_DB(sandboxDB);
+                    CLOSE_DB(bundleDB);
+                    [fileManager removeItemAtPath:fullPath error:nil];
+                    [fileManager moveItemAtPath:tempFullPath toPath:fullPath error:nil];
+                }else{
+                    CLOSE_DB(sandboxDB);
+                    CLOSE_DB(bundleDB);
+                    [fileManager removeItemAtPath:tempFullPath error:nil];
+                    @throw [NSException exceptionWithName:@"Quick SQLite validating " reason:@"Migration failed" userInfo:nil];
+                }
             }else{
-                CLOSE_DB(sandboxDB);
-                CLOSE_DB(bundleDB);
-                [fileManager removeItemAtPath:tempFullPath error:nil];
-                @throw [NSException exceptionWithName:@"Quick SQLite validating " reason:@"Migration failed" userInfo:nil];
-            }
-        }else{
-            if(bundleVersion > sandboxVersion) {
-                CLOSE_DB(sandboxDB);
-                CLOSE_DB(bundleDB);
-                [fileManager moveItemAtPath:tempFullPath toPath:fullPath error:nil];
+                if(bundleVersion > sandboxVersion) {
+                    CLOSE_DB(sandboxDB);
+                    CLOSE_DB(bundleDB);
+                    [fileManager moveItemAtPath:tempFullPath toPath:fullPath error:nil];
+                }
             }
         }
     } else if(sandboxDB == NULL && bundleDB != NULL) {
@@ -139,6 +149,24 @@
     
     CLOSE_DB(sandboxDB);
     CLOSE_DB(bundleDB);
+    
+    
+    // upgrading...
+    // 心好累啊，jb requirements
+    if (sqlite3_open([fullPath UTF8String], &sandboxDB) != SQLITE_OK) {
+        @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Creating database failed" userInfo:nil];
+    }
+    
+    int oldVersion = [self versionForDatabase:sandboxDB];
+    if (oldVersion < self.databaseVersion) {
+        if([self.openDelegate respondsToSelector:@selector(SQLiteOpenHelper:upgradingDB:fromVersion:toVersion:)]) {
+            [self.openDelegate SQLiteOpenHelper:self upgradingDB:sandboxDB fromVersion:oldVersion toVersion:self.databaseVersion];
+        }
+        
+        [self updateDatabase:sandboxDB toVersion:self.databaseVersion];
+    }
+    
+    CLOSE_DB(sandboxDB);
 }
 
 /**
@@ -150,27 +178,13 @@
 - (sqlite3 *)currentDatabase
 {
     if (_currentDatabase == NULL) {
-        int oldVersion;
-
         if (sqlite3_open([[NSString stringWithFormat:@"%@/%@",[self _databaseDiretory], self.databaseName ] UTF8String], &_currentDatabase) != SQLITE_OK) {
             @throw [NSException exceptionWithName:@"Quick SQLite openning database" reason:@"Openning sqlite3 database failed" userInfo:nil];
             return NULL;
         }
-
-        oldVersion = [self versionForDatabase:_currentDatabase];
-
-
-        if (oldVersion != self.databaseVersion) {
-            if(oldVersion != 0 && [self.openDelegate respondsToSelector:@selector(SQLiteOpenHelper:upgradingDB:fromVersion:toVersion:)]) {
-                [self.openDelegate SQLiteOpenHelper:self upgradingDB:_currentDatabase fromVersion:oldVersion toVersion:self.databaseVersion];
-            }
-            
-            [self updateDatabase:_currentDatabase toVersion:self.databaseVersion];
-        }
     }
-
-
-	return _currentDatabase;
+    
+    return _currentDatabase;
 }
 
 #pragma mark -- database version getter and setter
@@ -197,14 +211,14 @@
 
 
 #pragma  mark - traditional SQL toolkit
-- (BOOL)query:(const NSString *)tableName
+- (NSArray*)query:(const NSString *)tableName
       columns:(const NSArray *)columns
         where:(const NSString *)where
     statement:(sqlite3_stmt **)statement{
     return [self query:tableName columns:columns where:where orderBy:nil limit:nil groupBy:nil statement:statement];
 }
 
-- (BOOL)query:(const NSString *)tableName
+- (NSArray*)query:(const NSString *)tableName
      columns:(const NSArray *)columns
        where:(const NSString *)where
      orderBy:(const NSString *)orderBy
@@ -212,10 +226,15 @@
      groupBy:(const NSString *)groupBy
    statement:(sqlite3_stmt **)statement
 {
+    NSMutableArray* contentValues = [[NSMutableArray alloc] init];
+    for (NSString* key in columns) {
+        [contentValues addObject:[QDBValue instanceWithKey:key]];
+    }
+    
 	NSMutableString *sqlQuery	= [NSMutableString stringWithString:@"SELECT "];
 
     NSString* query = nil;
-    [QDBValue mappingContentValues:columns query:&query update:nil insert:nil];
+    [QDBValue mappingContentValues:contentValues query:&query update:nil insert:nil];
     
     [sqlQuery appendString:query];
 
@@ -239,16 +258,25 @@
 
 	[sqlQuery appendString:@";"];
 
-	return sqlite3_prepare_v2(self.currentDatabase, [sqlQuery UTF8String], -1, statement, NULL) == SQLITE_OK;
+    if(sqlite3_prepare_v2(self.currentDatabase, [sqlQuery UTF8String], -1, statement, NULL) == SQLITE_OK){
+        return contentValues;
+    }else{
+        return nil;
+    }
 }
 
-- (long)update:(const NSString *)tableName contentValues:(const NSArray *)contentValues where:(const NSString *)where
+- (long)update:(const NSString *)tableName values:(const NSDictionary*)values where:(const NSString *)where
 {
+    if(values.count < 1){
+        return -1;
+    }
+    
 	NSMutableString *sql	= [NSMutableString stringWithFormat:@"UPDATE %@ SET ", tableName];
 	sqlite3_stmt	*stmt;
 	int				result;
 
     NSString* update = nil;
+    NSArray* contentValues = [QDBValue valuesWithDictionary:values];
     [QDBValue mappingContentValues:contentValues query:nil update:&update insert:nil];
     
     [sql appendString:update];
@@ -273,8 +301,12 @@
 	return result;
 }
 
-- (long long)insert:(const NSString *)tableName contentValues:(const NSArray *)contentValues
+- (long long)insert:(const NSString *)tableName values:(const NSDictionary*)values
 {
+    if(values.count < 1){
+        return -1;
+    }
+    
 	NSMutableString *sql		= [NSMutableString stringWithFormat:@"INSERT INTO %@( ", tableName];
 	NSMutableString *valueSql	= [NSMutableString stringWithFormat:@" VALUES( "];
 	long long			result;
@@ -282,6 +314,7 @@
 
     NSString* query;
     NSString* insert;
+    NSArray* contentValues = [QDBValue valuesWithDictionary:values];
     [QDBValue mappingContentValues:contentValues query:&query update:nil insert:&insert];
 
     [sql appendString:query];
@@ -369,21 +402,15 @@
     NSMutableArray* result = [[NSMutableArray alloc] init];
     NSDictionary* row;
     
-    NSMutableArray* contentValues = [[NSMutableArray alloc] init];
-    for (NSString* key in columns) {
-        [contentValues addObject:[QDBValue instanceWithKey:key]];
-    }
+    NSArray* contentValues = [self query:tableName
+                                 columns:columns
+                                   where:where
+                                 orderBy:orderBy
+                                   limit:limit
+                                 groupBy:groupBy
+                               statement:&statement];
     
-    
-    if([self query:tableName
-           columns:contentValues
-             where:where
-           orderBy:orderBy
-             limit:limit
-           groupBy:groupBy
-         statement:&statement]){
-        
-        
+    if(contentValues != nil){
         while ((row=[QDBValue unbindRowIntoDictionaryWithValues:contentValues fromStatement:statement]) != nil) {
             [result addObject:row];
         }

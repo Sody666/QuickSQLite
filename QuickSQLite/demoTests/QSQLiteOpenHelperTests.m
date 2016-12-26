@@ -55,7 +55,8 @@
     {
         NSArray* columns = @[kColumnName, kColumnAge, kColumnId];
         
-        XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil]==0, @"应该啥数据都没的");
+        long count = [helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil];
+        XCTAssertTrue(count ==0, @"应该啥数据都没的");
         XCTAssertFalse([helper isRecordAvailableInTable:kTableName primaryKey:kColumnId condition:nil], @"应该是没记录");
         XCTAssertTrue([helper query:kTableName columns:columns where:nil orderBy:nil limit:nil groupBy:nil].count == 0, @"应该啥数据都没的");
     }
@@ -122,10 +123,6 @@
     
     // update part
     {
-        
-        NSMutableArray<QDBValue*>* contentValues = [[NSMutableArray alloc] init];
-        [contentValues addObject:[QDBValue instanceForObject:@"Bob" withKey:kColumnName]];
-        [contentValues addObject:[QDBValue instanceForObject:@(19) withKey:kColumnAge]];
         NSDictionary* values = @{
                                  kColumnName:@"Bob",
                                  kColumnAge:@(19),

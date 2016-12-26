@@ -475,7 +475,7 @@
     
     sqlite3_exec(self.currentDatabase, "BEGIN TRANSACTION", NULL, NULL, &error);
     
-    if(errorOutput != nil){
+    if(errorOutput != nil && error != NULL){
         *errorOutput = [NSError errorWithDomain:@"DBOperation" code:0 userInfo:@{@"reason":[NSString stringWithUTF8String:error]}];
     }
 

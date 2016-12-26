@@ -205,7 +205,12 @@ typedef enum : NSUInteger {
 +(NSArray*)valuesWithDictionary:(const NSDictionary*)keyValues{
     NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:keyValues.count];
     for (NSString* key in keyValues) {
-        [result addObject:[self instanceForObject:keyValues[key] withKey:key]];
+        id value = keyValues[key];
+        if([value isKindOfClass:[NSString class]] && [@"" isEqualToString:value]){
+            [result addObject:[self instanceWithKey:key]];
+        }else{
+            [result addObject:[self instanceForObject:keyValues[key] withKey:key]];
+        }
     }
     
     return [result copy];

@@ -98,12 +98,12 @@
  @return array the QDBValue where you can unbind data. nil if failed.
  */
 -(NSArray<QDBValue*>*)query:(const NSString *)tableName
-     columns:(const NSArray<NSString*> *)columns
-       where:(const NSString *)where
-     orderBy:(const NSString *)orderBy
-       limit:(const NSString *)limit
-     groupBy:(const NSString *)groupBy
-   statement:(sqlite3_stmt **)statement;
+                    columns:(const NSArray<NSString*> *)columns
+                      where:(const NSString *)where
+                    orderBy:(const NSString *)orderBy
+                      limit:(const NSString *)limit
+                    groupBy:(const NSString *)groupBy
+                  statement:(sqlite3_stmt **)statement;
 
 /**
  Do query on the table. This api should be use if
@@ -119,9 +119,9 @@
  @return array the QDBValue where you can unbind data. nil if failed.
  */
 -(NSArray<QDBValue*>*)query:(const NSString *)tableName
-     columns:(const NSArray<NSString*> *)columns
-       where:(const NSString *)where
-   statement:(sqlite3_stmt **)statement;
+                    columns:(const NSArray<NSString*> *)columns
+                      where:(const NSString *)where
+                  statement:(sqlite3_stmt **)statement;
 
 /**
  *    Update records with condition.
@@ -188,11 +188,11 @@
  *    @return rows wrapped by dict, keyed by column name.
  */
 -(NSArray<NSDictionary*>*)query:(const NSString *)tableName
-         columns:(const NSArray<NSString*> *)columns
-           where:(const NSString *)where
-         orderBy:(const NSString *)orderBy
-           limit:(const NSString *)limit
-         groupBy:(const NSString *)groupBy;
+                        columns:(const NSArray<NSString*> *)columns
+                          where:(const NSString *)where
+                        orderBy:(const NSString *)orderBy
+                          limit:(const NSString *)limit
+                        groupBy:(const NSString *)groupBy;
 
 /**
  *    Do a query on the database.
@@ -202,8 +202,8 @@
  *    @return rows wrapped by dict, keyed by column name.
  */
 -(NSArray<NSDictionary*>*)query:(const NSString *)tableName
-         columns:(const NSArray<NSString*> *)columns
-           where:(const NSString *)where;
+                        columns:(const NSArray<NSString*> *)columns
+                          where:(const NSString *)where;
 #pragma mark - other tools
 /**
  Force database to be closed.
@@ -232,8 +232,10 @@
  if the database is closed or if an error occurs.
 
  @param errorOutput error if failed. Provide nil if you don't care
+ 
+ @return whether transaction begin successfully
  */
--(void)beginTransactionWithError:(NSError**)errorOutput;
+-(BOOL)beginTransactionWithError:(NSError**)errorOutput;
 
 
 /**

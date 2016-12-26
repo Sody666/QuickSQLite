@@ -12,6 +12,54 @@
 #define kQDBDirectory @"QDatabases"
 
 
+@interface QDBValue(helper)
+/**
+ Prepare an array of QDBValues with pairs of key and value.
+ 
+ @param keyValues key and value for column name and value
+ @return prepared values
+ */
++(NSArray*)valuesWithDictionary:(const NSDictionary*)keyValues;
+
+/**
+ Mapping the content value for query string.
+ Note: if you don't need some kinds of format, just provide nil.
+ for example, set updateOutput and insertOutput to nil if you want
+ query format only.
+ 
+ @param contentValues values
+ @param queryOutput as name hints
+ @param updateOutput as name hints
+ @param insertOutput as name hints
+ */
++(void)generateSQLWithValues:(const NSArray<QDBValue*>*)contentValues
+                       query:(NSString**)queryOutput
+                      update:(NSString**)updateOutput
+                      insert:(NSString**)insertOutput;
+
+
+
+/**
+ *  unbind values from statement.
+ *  For inner use.
+ *
+ *  @param values value to bind to
+ *  @param stmt   value to bind from
+ *  @return whether row of data. nil if failed.
+ */
++(NSDictionary*)unbindRowIntoDictionaryWithValues:(const NSArray<QDBValue*> *)values
+                                    fromStatement:(sqlite3_stmt *)stmt;
+
+
+/**
+ *  Bind values to statement.
+ *
+ *  @param values value to bind to
+ *  @param stmt   value to bind from
+ */
++(void)bindRowWithValues:(const NSArray *)values intoStatement:(sqlite3_stmt *)stmt;
+@end
+
 @interface QSQLiteOpenHelper ()
 @property (nonatomic, readonly) sqlite3* currentDatabase;
 @property (nonatomic, strong) NSString* databaseName;
@@ -226,15 +274,18 @@
      groupBy:(const NSString *)groupBy
    statement:(sqlite3_stmt **)statement
 {
-    NSMutableArray* contentValues = [[NSMutableArray alloc] init];
+    NSMutableDictionary* values = [[NSMutableDictionary alloc] initWithCapacity:columns.count];
+    
     for (NSString* key in columns) {
-        [contentValues addObject:[QDBValue instanceWithKey:key]];
+        [values setObject:@"" forKey:key];
     }
+    
+    NSArray* contentValues = [QDBValue valuesWithDictionary:values];
     
 	NSMutableString *sqlQuery	= [NSMutableString stringWithString:@"SELECT "];
 
     NSString* query = nil;
-    [QDBValue mappingContentValues:contentValues query:&query update:nil insert:nil];
+    [QDBValue generateSQLWithValues:contentValues query:&query update:nil insert:nil];
     
     [sqlQuery appendString:query];
 
@@ -277,7 +328,7 @@
 
     NSString* update = nil;
     NSArray* contentValues = [QDBValue valuesWithDictionary:values];
-    [QDBValue mappingContentValues:contentValues query:nil update:&update insert:nil];
+    [QDBValue generateSQLWithValues:contentValues query:nil update:&update insert:nil];
     
     [sql appendString:update];
 
@@ -315,7 +366,7 @@
     NSString* query;
     NSString* insert;
     NSArray* contentValues = [QDBValue valuesWithDictionary:values];
-    [QDBValue mappingContentValues:contentValues query:&query update:nil insert:&insert];
+    [QDBValue generateSQLWithValues:contentValues query:&query update:nil insert:&insert];
 
     [sql appendString:query];
     [valueSql appendString:insert];
@@ -419,19 +470,20 @@
     return result;
 }
 #pragma mark - transaction
--(void)beginTransactionWithError:(NSError**)errorOutput{
+-(BOOL)beginTransactionWithError:(NSError**)errorOutput{
     char* error = NULL;
     
-    if(errorOutput == nil){
-        sqlite3_exec(self.currentDatabase, "BEGIN TRANSACTION", NULL, NULL, NULL);
-    }else{
-        sqlite3_exec(self.currentDatabase, "BEGIN TRANSACTION", NULL, NULL, &error);
-    }
+    sqlite3_exec(self.currentDatabase, "BEGIN TRANSACTION", NULL, NULL, &error);
     
-    if(error != NULL){
+    if(errorOutput != nil){
         *errorOutput = [NSError errorWithDomain:@"DBOperation" code:0 userInfo:@{@"reason":[NSString stringWithUTF8String:error]}];
-        
+    }
+
+    if(error != NULL){
         sqlite3_free(error);
+        return NO;
+    }else{
+        return YES;
     }
 }
 

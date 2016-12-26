@@ -22,6 +22,27 @@ typedef enum : NSUInteger {
 @end
 
 @implementation QDBValue
+#pragma mark - public methods
+-(id)value{
+    return self.contentData;
+}
+
++(BOOL)unbindRowIntoValues:(const NSArray *)values fromStatement:(sqlite3_stmt *)stmt{
+    int index = 0;
+    BOOL result = NO;
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        for (QDBValue *value in values) {
+            [value unbindValueFromStatment:stmt atIndex:index];
+            ++index;
+        }
+        
+        result = YES;
+    }
+    
+    return result;
+}
+
+#pragma mark -private methods
 +(QDBValue*)instanceForObject:(id)object withKey:(NSString*)key{
     if(key.length == 0 || object == nil){
         return nil;
@@ -61,44 +82,7 @@ typedef enum : NSUInteger {
     return content;
 }
 
-+(NSArray*)valuesWithDictionary:(const NSDictionary*)keyValues{
-    NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:keyValues.count];
-    for (NSString* key in keyValues) {
-        [result addObject:[self instanceForObject:keyValues[key] withKey:key]];
-    }
-    
-    return [result copy];
-}
 
-+(void)mappingContentValues:(const NSArray*)contentValues
-                      query:(NSString**)queryOutput
-                     update:(NSString**)updateOutput
-                     insert:(NSString**)insertOutput{
-    NSMutableString* query = [[NSMutableString alloc] init];
-    NSMutableString* updateMap = [[NSMutableString alloc] init];
-    NSMutableString* insertMap = [[NSMutableString alloc] init];
-    
-    NSString* comma = @"";
-    for (QDBValue* value in contentValues) {
-        [query appendFormat:@"%@%@", comma, value.key];
-        [updateMap appendFormat:@"%@%@=?", comma, value.key];
-        [insertMap appendFormat:@"%@?", comma];
-        
-        comma = @", ";
-    }
-    
-    if(queryOutput != nil){
-        *queryOutput = [query copy];
-    }
-    
-    if(updateOutput != nil){
-        *updateOutput = [updateMap copy];
-    }
-    
-    if(insertOutput != nil){
-        *insertOutput = [insertMap copy];
-    }
-}
 
 #pragma mark - 数据操作部分
 
@@ -167,38 +151,95 @@ typedef enum : NSUInteger {
         }
     }
 }
+@end
 
-+(BOOL)unbindRowIntoValues:(const NSArray *)values fromStatement:(sqlite3_stmt *)stmt{
-    int index = 0;
-    BOOL result = NO;
-    if (sqlite3_step(stmt) == SQLITE_ROW) {
-        for (QDBValue *value in values) {
-            [value unbindValueFromStatment:stmt atIndex:index];
-            ++index;
-        }
-        
-        result = YES;
-    }
-    
-    return result;
-}
+@interface QDBValue(helper)
+/**
+ Prepare an array of QDBValues with pairs of key and value.
+ 
+ @param keyValues key and value for column name and value
+ @return prepared values
+ */
++(NSArray*)valuesWithDictionary:(const NSDictionary*)keyValues;
+
+/**
+ Mapping the content value for query string.
+ Note: if you don't need some kinds of format, just provide nil.
+ for example, set updateOutput and insertOutput to nil if you want
+ query format only.
+ 
+ @param contentValues values
+ @param queryOutput as name hints
+ @param updateOutput as name hints
+ @param insertOutput as name hints
+ */
++(void)generateSQLWithValues:(const NSArray<QDBValue*>*)contentValues
+                       query:(NSString**)queryOutput
+                      update:(NSString**)updateOutput
+                      insert:(NSString**)insertOutput;
+
+
+
+/**
+ *  unbind values from statement.
+ *  For inner use.
+ *
+ *  @param values value to bind to
+ *  @param stmt   value to bind from
+ *  @return whether row of data. nil if failed.
+ */
++(NSDictionary*)unbindRowIntoDictionaryWithValues:(const NSArray<QDBValue*> *)values
+                                    fromStatement:(sqlite3_stmt *)stmt;
+
 
 /**
  *  Bind values to statement.
  *
- *  @param stmt   target statement
- *  @param values target values
+ *  @param values value to bind to
+ *  @param stmt   value to bind from
  */
-+(void)bindRowWithValues:(const NSArray *)values intoStatement:(sqlite3_stmt *)stmt
-{
-    int index = 0;
-    
-    for (QDBValue *value in values) {
-        ++index;
-        [value bindValueIntoStatment:stmt atIndex:index];
++(void)bindRowWithValues:(const NSArray *)values intoStatement:(sqlite3_stmt *)stmt;
+@end
+
+@implementation QDBValue (helper)
++(NSArray*)valuesWithDictionary:(const NSDictionary*)keyValues{
+    NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:keyValues.count];
+    for (NSString* key in keyValues) {
+        [result addObject:[self instanceForObject:keyValues[key] withKey:key]];
     }
+    
+    return [result copy];
 }
 
++(void)generateSQLWithValues:(const NSArray*)contentValues
+                       query:(NSString**)queryOutput
+                      update:(NSString**)updateOutput
+                      insert:(NSString**)insertOutput{
+    NSMutableString* query = [[NSMutableString alloc] init];
+    NSMutableString* updateMap = [[NSMutableString alloc] init];
+    NSMutableString* insertMap = [[NSMutableString alloc] init];
+    
+    NSString* comma = @"";
+    for (QDBValue* value in contentValues) {
+        [query appendFormat:@"%@%@", comma, value.key];
+        [updateMap appendFormat:@"%@%@=?", comma, value.key];
+        [insertMap appendFormat:@"%@?", comma];
+        
+        comma = @", ";
+    }
+    
+    if(queryOutput != nil){
+        *queryOutput = [query copy];
+    }
+    
+    if(updateOutput != nil){
+        *updateOutput = [updateMap copy];
+    }
+    
+    if(insertOutput != nil){
+        *insertOutput = [insertMap copy];
+    }
+}
 
 +(NSDictionary*)unbindRowIntoDictionaryWithValues:(const NSArray *)values fromStatement:(sqlite3_stmt *)stmt{
     if(![self unbindRowIntoValues:values fromStatement:stmt]){
@@ -213,7 +254,13 @@ typedef enum : NSUInteger {
     return result;
 }
 
--(id)value{
-    return self.contentData;
++(void)bindRowWithValues:(const NSArray *)values intoStatement:(sqlite3_stmt *)stmt
+{
+    int index = 0;
+    
+    for (QDBValue *value in values) {
+        ++index;
+        [value bindValueIntoStatment:stmt atIndex:index];
+    }
 }
 @end

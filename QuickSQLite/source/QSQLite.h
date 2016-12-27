@@ -12,6 +12,8 @@
 #import "QDBValue.h"
 #import "QSQLiteOpenHelper.h"
 
-#define QSTR(s, ...) ([NSString stringWithFormat:(s), ##__VA_ARGS__ ?:@""])
+#define QFormatString(s, ...) ([NSString stringWithFormat:(s), ##__VA_ARGS__ ?:@""])
+
+#define QNumber(x) ((NSNumber*)(x))
 
 #endif /* QSQLite_h */

@@ -79,7 +79,24 @@
  *
  *  @return helper initialized
  */
-- (id)initWithName:(NSString *)name version:(int)version openDelegate:(id)delegate;
+- (id)initWithName:(NSString *)name
+           version:(int)version
+      openDelegate:(id)delegate;
+
+/**
+ *  Initialize the encrypted database with key, name and version.
+ *  Note: If the database can't be operated with key, an exception will be thrown.
+ *
+ *  @param name    database name
+ *  @param key     key to encrypte database
+ *  @param version database version
+ *
+ *  @return helper initialized
+ */
+- (id)initWithName:(NSString *)name
+               key:(NSString*)key
+           version:(int)version
+      openDelegate:(id)delegate;
 #pragma mark - traditional sql interface
 /**
  Do query on the table. This api should be use if 

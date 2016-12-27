@@ -156,12 +156,22 @@ typedef enum : NSUInteger {
 @interface QDBValue(helper)
 /**
  Prepare an array of QDBValues with pairs of key and value.
+ for update or insert use.
  
  @param keyValues key and value for column name and value
  @return prepared values
  */
 +(NSArray*)valuesWithDictionary:(const NSDictionary*)keyValues;
 
+
+/**
+ Prepare an array of QDBValues with columns.
+ For query use.
+
+ @param columns target columns
+ @return prepared values
+ */
++(NSArray*)valuesWithColumns:(const NSArray*)columns;
 /**
  Mapping the content value for query string.
  Note: if you don't need some kinds of format, just provide nil.
@@ -205,12 +215,16 @@ typedef enum : NSUInteger {
 +(NSArray*)valuesWithDictionary:(const NSDictionary*)keyValues{
     NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:keyValues.count];
     for (NSString* key in keyValues) {
-        id value = keyValues[key];
-        if([value isKindOfClass:[NSString class]] && [@"" isEqualToString:value]){
-            [result addObject:[self instanceWithKey:key]];
-        }else{
-            [result addObject:[self instanceForObject:keyValues[key] withKey:key]];
-        }
+        [result addObject:[self instanceForObject:keyValues[key] withKey:key]];
+    }
+    
+    return [result copy];
+}
+
++(NSArray*)valuesWithColumns:(const NSArray*)columns{
+    NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:columns.count];
+    for(NSString* column in columns){
+        [result addObject:[self instanceWithKey:column]];
     }
     
     return [result copy];

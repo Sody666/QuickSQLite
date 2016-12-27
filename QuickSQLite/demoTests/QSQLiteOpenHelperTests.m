@@ -99,7 +99,7 @@
     
     // query part
     {
-        NSString* where = QSTR(@"%@==1", kColumnId);
+        NSString* where = QFormatString(@"%@==1", kColumnId);
         sqlite3_stmt* statement = NULL;
         NSArray<QDBValue*>* contentValues = [helper query:kTableName columns:@[kColumnName, kColumnAge, kColumnId] where:where statement:&statement];
         XCTAssertTrue(contentValues != nil, @"查询应该要成功");
@@ -127,13 +127,13 @@
                                  kColumnName:@"Bob",
                                  kColumnAge:@(19),
                                  };
-        XCTAssertTrue([helper update:kTableName values:values where:QSTR(@"%@==1", kColumnId)], @"更新应该要成功");
+        XCTAssertTrue([helper update:kTableName values:values where:QFormatString(@"%@==1", kColumnId)], @"更新应该要成功");
     }
     
     // query confirm part
     {
         // by id
-        NSString* where = QSTR(@"%@==1", kColumnId);
+        NSString* where = QFormatString(@"%@==1", kColumnId);
         sqlite3_stmt* statement = NULL;
         NSArray<QDBValue*>* contentValues = [helper query:kTableName columns:@[kColumnName, kColumnAge, kColumnId] where:where orderBy:nil limit:nil groupBy:nil statement:&statement];
         XCTAssertTrue(contentValues != nil, @"查询应该要成功");
@@ -144,7 +144,7 @@
         XCTAssertFalse([QDBValue unbindRowIntoValues:contentValues fromStatement:statement], @"第二次取数据不应该成功");
         sqlite3_finalize(statement);
         
-        where = QSTR(@"%@=='Dick'", kColumnName);
+        where = QFormatString(@"%@=='Dick'", kColumnName);
         statement = NULL;
         contentValues = [helper query:kTableName columns:@[kColumnName, kColumnAge, kColumnId] where:where orderBy:nil limit:nil groupBy:nil statement:&statement];
         XCTAssertTrue(contentValues != nil, @"查询应该要成功");

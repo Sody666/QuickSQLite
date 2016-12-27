@@ -15,11 +15,22 @@
 @interface QDBValue(helper)
 /**
  Prepare an array of QDBValues with pairs of key and value.
+ for update or insert use.
  
  @param keyValues key and value for column name and value
  @return prepared values
  */
 +(NSArray*)valuesWithDictionary:(const NSDictionary*)keyValues;
+
+
+/**
+ Prepare an array of QDBValues with columns.
+ For query use.
+ 
+ @param columns target columns
+ @return prepared values
+ */
++(NSArray*)valuesWithColumns:(const NSArray*)columns;
 
 /**
  Mapping the content value for query string.
@@ -68,24 +79,84 @@
 
 @end
 
+#define CLOSE_DB(db) do{if((db) != NULL){sqlite3_close((db)); (db)=NULL;} }while(0)
+
 @implementation QSQLiteOpenHelper
 @synthesize currentDatabase = _currentDatabase;
 
 - (id)initWithName:(NSString *)name version:(int)version openDelegate:(id)delegate
 {
+    return [self initWithName:name key:nil version:version openDelegate:delegate];
+}
+
+- (id)initWithName:(NSString *)name
+               key:(NSString*)key
+           version:(int)version
+      openDelegate:(id)delegate{
     self = [super init];
     if (self) {
         _databaseName = name;
         _currentDatabase = NULL;
         _databaseVersion = version;
         _openDelegate = delegate;
-        [self validDatabase];
+        [self _validDatabaseWithKey:key];
+        [self _openCurrentDatabaseWithKey:key];
     }
-
-	return self;
+    
+    return self;
 }
 
 #pragma mark -- Valid current database
+
+-(BOOL)_isValidEncryptedDB:(sqlite3*)db{
+    if(db == NULL){
+        return NO;
+    }
+    
+    sqlite3_stmt* stmt = NULL;
+    BOOL sqlcipher_valid = NO;
+    if(sqlite3_prepare_v2(db, "PRAGMA cipher_version;", -1, &stmt, NULL) == SQLITE_OK) {
+        if(sqlite3_step(stmt)== SQLITE_ROW) {
+            const unsigned char *ver = sqlite3_column_text(stmt, 0);
+            if(ver != NULL) {
+                sqlcipher_valid = YES;
+            }
+        }
+        sqlite3_finalize(stmt);
+    }
+    
+    return sqlcipher_valid;
+}
+
+-(sqlite3*)_openDatabaseInPath:(NSString*)path withKey:(NSString*)key{
+    sqlite3* result = NULL;
+    if(path.length == 0){
+        return result;
+    }
+    
+    const char* utf8Key = [path UTF8String];
+    unsigned long keyLength = strlen(utf8Key);
+    
+    BOOL existed = [[NSFileManager defaultManager] fileExistsAtPath:path];
+    if(sqlite3_open(utf8Key, &result) != SQLITE_OK){
+        return NULL;
+    }
+    
+    if(key.length > 0){
+        if(existed){
+            sqlite3_key(result, utf8Key, (int)keyLength);
+        }else{
+            // set the key to brand new db
+            sqlite3_rekey(result, utf8Key, (int)keyLength);
+        }
+        
+        if(![self _isValidEncryptedDB:result]){
+            CLOSE_DB(result);
+        }
+    }
+    
+    return result;
+}
 
 -(NSString*)_databaseDiretory{
     NSString* folder = [NSString stringWithFormat:@"%@/%@/", kQDBPath, kQDBDirectory];
@@ -104,8 +175,8 @@
     return folder;
 }
 
-#define CLOSE_DB(db) do{if((db) != NULL){sqlite3_close((db)); (db)=NULL;} }while(0)
-- (void)validDatabase
+
+- (void)_validDatabaseWithKey:(NSString*)key
 {
     NSString	*dbPath = [self _databaseDiretory];
     sqlite3		*sandboxDB = NULL;
@@ -117,7 +188,8 @@
     
     // try to open sandbox database
     if ([fileManager fileExistsAtPath:fullPath]) {
-        if (sqlite3_open([fullPath UTF8String], &sandboxDB) != SQLITE_OK) {
+        sandboxDB = [self _openDatabaseInPath:fullPath withKey:key];
+        if (sandboxDB == NULL) {
             @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Failed to open sandbox database file" userInfo:nil];
         }
         
@@ -141,7 +213,8 @@
             
             [fileManager copyItemAtPath:bundleDBPath toPath:tempFullPath error:nil];
             
-            if (sqlite3_open([tempFullPath UTF8String], &bundleDB) != SQLITE_OK) {
+            bundleDB = [self _openDatabaseInPath:tempFullPath withKey:key];
+            if (bundleDB == NULL) {
                 @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Failed to open bundle database file" userInfo:nil];
             }
         }
@@ -179,7 +252,8 @@
         CLOSE_DB(bundleDB);
         [fileManager moveItemAtPath:tempFullPath toPath:fullPath error:nil];
     } else if(sandboxDB == NULL && bundleDB == NULL) {
-        if (sqlite3_open([fullPath UTF8String], &sandboxDB) != SQLITE_OK) {
+        sandboxDB = [self _openDatabaseInPath:fullPath withKey:key];
+        if (sandboxDB == NULL) {
             @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Creating database failed" userInfo:nil];
         }
         
@@ -201,7 +275,8 @@
     
     // upgrading...
     // 心好累啊，jb requirements
-    if (sqlite3_open([fullPath UTF8String], &sandboxDB) != SQLITE_OK) {
+    sandboxDB = [self _openDatabaseInPath:fullPath withKey:key];
+    if (sandboxDB == NULL) {
         @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Creating database failed" userInfo:nil];
     }
     
@@ -217,24 +292,18 @@
     CLOSE_DB(sandboxDB);
 }
 
-/**
- *   Check the database file. If it doesn't exist, create one brand new.
- *   Please Note that the new database don't have any information.
- *
- *   Will throw a exception if creating new database fails
- */
-- (sqlite3 *)currentDatabase
-{
-    if (_currentDatabase == NULL) {
-        if (sqlite3_open([[NSString stringWithFormat:@"%@/%@",[self _databaseDiretory], self.databaseName ] UTF8String], &_currentDatabase) != SQLITE_OK) {
-            @throw [NSException exceptionWithName:@"Quick SQLite openning database" reason:@"Openning sqlite3 database failed" userInfo:nil];
-            return NULL;
-        }
+
+-(void)_openCurrentDatabaseWithKey:(NSString*)key{
+    if(_currentDatabase != NULL){
+        return;
     }
     
-    return _currentDatabase;
+    NSString* currentDatabasePath = [NSString stringWithFormat:@"%@/%@",[self _databaseDiretory], self.databaseName];
+    _currentDatabase = [self _openDatabaseInPath:currentDatabasePath withKey:key];
+    if (_currentDatabase == NULL) {
+        @throw [NSException exceptionWithName:@"Quick SQLite openning database" reason:@"Openning sqlite3 database failed" userInfo:nil];
+    }
 }
-
 #pragma mark -- database version getter and setter
 - (int)versionForDatabase:(sqlite3 *)db
 {
@@ -280,7 +349,7 @@
         [values setObject:@"" forKey:key];
     }
     
-    NSArray* contentValues = [QDBValue valuesWithDictionary:values];
+    NSArray* contentValues = [QDBValue valuesWithColumns:columns];
     
 	NSMutableString *sqlQuery	= [NSMutableString stringWithString:@"SELECT "];
 

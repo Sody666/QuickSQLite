@@ -7,14 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		98FCA7211E027A100007A27F /* staticLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA7201E027A100007A27F /* staticLibrary.m */; };
-		98FCA7221E027A100007A27F /* staticLibrary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 98FCA71F1E027A100007A27F /* staticLibrary.h */; };
 		98FCA7271E028ADF0007A27F /* QDBValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA6CA1E0277740007A27F /* QDBValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98FCA7281E028ADF0007A27F /* QDBValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CB1E0277740007A27F /* QDBValue.m */; };
 		98FCA7291E028ADF0007A27F /* QSQLiteOpenHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA6CC1E0277740007A27F /* QSQLiteOpenHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98FCA72A1E028ADF0007A27F /* QSQLiteOpenHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CD1E0277740007A27F /* QSQLiteOpenHelper.m */; };
-		98FCA72B1E028AE80007A27F /* QDBValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CB1E0277740007A27F /* QDBValue.m */; };
-		98FCA72C1E028AE80007A27F /* QSQLiteOpenHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CD1E0277740007A27F /* QSQLiteOpenHelper.m */; };
 		98FCA7311E02A25C0007A27F /* QSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA7301E02A25C0007A27F /* QSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98FCA7621E03B5B30007A27F /* QuickSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA7121E0279DB0007A27F /* QuickSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98FCA77B1E03CECC0007A27F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA77A1E03CECC0007A27F /* main.m */; };
@@ -44,19 +40,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		98FCA71B1E027A100007A27F /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-				98FCA7221E027A100007A27F /* staticLibrary.h in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		98FCA6CA1E0277740007A27F /* QDBValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDBValue.h; sourceTree = "<group>"; };
 		98FCA6CB1E0277740007A27F /* QDBValue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDBValue.m; sourceTree = "<group>"; };
@@ -65,9 +48,6 @@
 		98FCA7101E0279DB0007A27F /* QuickSQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuickSQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98FCA7121E0279DB0007A27F /* QuickSQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickSQLite.h; sourceTree = "<group>"; };
 		98FCA7131E0279DB0007A27F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98FCA71D1E027A100007A27F /* libstaticLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libstaticLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		98FCA71F1E027A100007A27F /* staticLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = staticLibrary.h; sourceTree = "<group>"; };
-		98FCA7201E027A100007A27F /* staticLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = staticLibrary.m; sourceTree = "<group>"; };
 		98FCA72E1E028B380007A27F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 		98FCA7301E02A25C0007A27F /* QSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSQLite.h; sourceTree = "<group>"; };
 		98FCA7771E03CECC0007A27F /* demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,13 +78,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		98FCA71A1E027A100007A27F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		98FCA7741E03CECC0007A27F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,7 +102,6 @@
 			children = (
 				98FCA6C91E0277740007A27F /* source */,
 				98FCA7111E0279DB0007A27F /* framework */,
-				98FCA71E1E027A100007A27F /* staticLibrary */,
 				98FCA7781E03CECC0007A27F /* demo */,
 				98FCA79E1E03D7EA0007A27F /* demoTests */,
 				98FCA6D41E0277AF0007A27F /* Products */,
@@ -153,7 +125,6 @@
 			isa = PBXGroup;
 			children = (
 				98FCA7101E0279DB0007A27F /* QuickSQLite.framework */,
-				98FCA71D1E027A100007A27F /* libstaticLibrary.a */,
 				98FCA7771E03CECC0007A27F /* demo.app */,
 				98FCA79D1E03D7E90007A27F /* demoTests.xctest */,
 			);
@@ -167,15 +138,6 @@
 				98FCA7131E0279DB0007A27F /* Info.plist */,
 			);
 			path = framework;
-			sourceTree = "<group>";
-		};
-		98FCA71E1E027A100007A27F /* staticLibrary */ = {
-			isa = PBXGroup;
-			children = (
-				98FCA71F1E027A100007A27F /* staticLibrary.h */,
-				98FCA7201E027A100007A27F /* staticLibrary.m */,
-			);
-			path = staticLibrary;
 			sourceTree = "<group>";
 		};
 		98FCA72D1E028B380007A27F /* Frameworks */ = {
@@ -268,24 +230,6 @@
 			productReference = 98FCA7101E0279DB0007A27F /* QuickSQLite.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		98FCA71C1E027A100007A27F /* staticLibrary */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 98FCA7231E027A100007A27F /* Build configuration list for PBXNativeTarget "staticLibrary" */;
-			buildPhases = (
-				98FCA7191E027A100007A27F /* Sources */,
-				98FCA71A1E027A100007A27F /* Frameworks */,
-				98FCA71B1E027A100007A27F /* CopyFiles */,
-				98FCA7261E0288CE0007A27F /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = staticLibrary;
-			productName = staticLibrary;
-			productReference = 98FCA71D1E027A100007A27F /* libstaticLibrary.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		98FCA7761E03CECC0007A27F /* demo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98FCA78B1E03CECC0007A27F /* Build configuration list for PBXNativeTarget "demo" */;
@@ -333,10 +277,6 @@
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Manual;
 					};
-					98FCA71C1E027A100007A27F = {
-						CreatedOnToolsVersion = 8.1;
-						ProvisioningStyle = Automatic;
-					};
 					98FCA7761E03CECC0007A27F = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = 4TF6TS28RE;
@@ -364,7 +304,6 @@
 			projectRoot = "";
 			targets = (
 				98FCA70F1E0279DB0007A27F /* framework */,
-				98FCA71C1E027A100007A27F /* staticLibrary */,
 				98FCA7761E03CECC0007A27F /* demo */,
 				98FCA79C1E03D7E90007A27F /* demoTests */,
 			);
@@ -416,19 +355,6 @@
 			shellPath = /bin/sh;
 			shellScript = "UNIVERSAL_OUTPUT_PATH=${BUILD_DIR}/${CONFIGURATION}-universal\nUNIVERSAL_FRAMEWORK=${UNIVERSAL_OUTPUT_PATH}/${PRODUCT_NAME}.framework\nIPHONE_FRAMEWORK=${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PRODUCT_NAME}.framework\nSIMULATOR_FRAMEWORK=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PRODUCT_NAME}.framework\n\nrm -rf ${UNIVERSAL_FRAMEWORK}\nmkdir -p ${UNIVERSAL_OUTPUT_PATH}\n\nif [ -d ${IPHONE_FRAMEWORK} ] && [ -d ${SIMULATOR_FRAMEWORK} ]; then\ncp -r ${IPHONE_FRAMEWORK} ${UNIVERSAL_FRAMEWORK}\nlipo -create ${IPHONE_FRAMEWORK}/${PRODUCT_NAME} ${SIMULATOR_FRAMEWORK}/${PRODUCT_NAME} -output ${UNIVERSAL_FRAMEWORK}/${PRODUCT_NAME}\necho \"Product information: \"\nlipo -info ${UNIVERSAL_FRAMEWORK}/${PRODUCT_NAME}\nelse\necho \"error: Both simulator and ios products are required.\"\necho \"Universal product is not produced.\"\nfi";
 		};
-		98FCA7261E0288CE0007A27F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "UNIVERSAL_OUTPUT_PATH=${BUILD_DIR}/${CONFIGURATION}-universal\nIPHONE_LIB_PATH=${BUILD_DIR}/${CONFIGURATION}-iphoneos\nSIMULATOR_LIB_PATH=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator\nIPHONE_LIB=${IPHONE_LIB_PATH}/lib${PRODUCT_NAME}.a\nSIMULATOR_LIB=${SIMULATOR_LIB_PATH}/lib${PRODUCT_NAME}.a\n\n\nrm -rf ${UNIVERSAL_OUTPUT_PATH}/*.a\nrm -rf ${UNIVERSAL_OUTPUT_PATH}/include\n                                \nmkdir -p ${UNIVERSAL_OUTPUT_PATH}\n                                \nif [ -f ${IPHONE_LIB} ] && [ -f ${SIMULATOR_LIB} ] && [ -d ${IPHONE_LIB_PATH}/include ]; then\n    cp -r ${IPHONE_LIB_PATH}/include ${UNIVERSAL_OUTPUT_PATH}/include\n    lipo -create ${IPHONE_LIB} ${SIMULATOR_LIB} -output ${UNIVERSAL_OUTPUT_PATH}/lib${PROJECT_NAME}.a\n    echo \"Product information: \"\n    lipo -info ${UNIVERSAL_OUTPUT_PATH}/lib${PROJECT_NAME}.a\nelse\n    echo \"Both simulator and ios products are required.\"\n    echo \"Universal product is not produced.\"\nfi";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -438,16 +364,6 @@
 			files = (
 				98FCA7281E028ADF0007A27F /* QDBValue.m in Sources */,
 				98FCA72A1E028ADF0007A27F /* QSQLiteOpenHelper.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		98FCA7191E027A100007A27F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				98FCA72C1E028AE80007A27F /* QSQLiteOpenHelper.m in Sources */,
-				98FCA7211E027A100007A27F /* staticLibrary.m in Sources */,
-				98FCA72B1E028AE80007A27F /* QDBValue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,10 +434,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					armv7s,
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -588,10 +501,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					armv7s,
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -646,115 +556,6 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		98FCA7241E027A100007A27F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					armv7s,
-				);
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = "";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		98FCA7251E027A100007A27F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					armv7s,
-				);
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = "";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -977,15 +778,6 @@
 			buildConfigurations = (
 				98FCA7161E0279DB0007A27F /* Debug */,
 				98FCA7171E0279DB0007A27F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		98FCA7231E027A100007A27F /* Build configuration list for PBXNativeTarget "staticLibrary" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				98FCA7241E027A100007A27F /* Debug */,
-				98FCA7251E027A100007A27F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		98A2C87A1E12A700009A3522 /* libsqlcipher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C8771E12A5BC009A3522 /* libsqlcipher.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		98A2C87C1E12A717009A3522 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C87B1E12A717009A3522 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		98A2C87E1E12BF48009A3522 /* testDBEncrypted.sql in Resources */ = {isa = PBXBuildFile; fileRef = 98A2C87D1E12BF48009A3522 /* testDBEncrypted.sql */; };
+		98A2C8901E13B855009A3522 /* libsqlcipher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C8771E12A5BC009A3522 /* libsqlcipher.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		98A2C8911E13B868009A3522 /* libsqlcipher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C8771E12A5BC009A3522 /* libsqlcipher.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		98A2C8921E13B87C009A3522 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C87B1E12A717009A3522 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		98A2C8931E13B883009A3522 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C87B1E12A717009A3522 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		98A2C8B71E14EC46009A3522 /* QException.h in Headers */ = {isa = PBXBuildFile; fileRef = 98A2C8B51E14EC46009A3522 /* QException.h */; };
+		98A2C8B81E14EC46009A3522 /* QException.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A2C8B61E14EC46009A3522 /* QException.m */; };
 		98FCA7271E028ADF0007A27F /* QDBValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA6CA1E0277740007A27F /* QDBValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98FCA7281E028ADF0007A27F /* QDBValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CB1E0277740007A27F /* QDBValue.m */; };
 		98FCA7291E028ADF0007A27F /* QSQLiteOpenHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA6CC1E0277740007A27F /* QSQLiteOpenHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -22,15 +31,55 @@
 		98FCA7941E03CF640007A27F /* demo.sql in Resources */ = {isa = PBXBuildFile; fileRef = 98FCA7901E03CF640007A27F /* demo.sql */; };
 		98FCA7961E03CFAC0007A27F /* QDBValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CB1E0277740007A27F /* QDBValue.m */; };
 		98FCA7971E03CFAC0007A27F /* QSQLiteOpenHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CD1E0277740007A27F /* QSQLiteOpenHelper.m */; };
-		98FCA7981E03CFED0007A27F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 98FCA72E1E028B380007A27F /* libsqlite3.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
 		98FCA7A91E03D99C0007A27F /* RootTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA7A81E03D99C0007A27F /* RootTestCase.m */; };
 		98FCA7AB1E03DA170007A27F /* QSQLiteOpenHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA7AA1E03DA170007A27F /* QSQLiteOpenHelperTests.m */; };
-		98FCA7AE1E04406F0007A27F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 98FCA72E1E028B380007A27F /* libsqlite3.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
 		98FCA7E21E06CC3F0007A27F /* sampleSmallImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FCA7E01E06CC3F0007A27F /* sampleSmallImage.png */; };
 		98FCA7E31E06CC3F0007A27F /* testDB.sql in Resources */ = {isa = PBXBuildFile; fileRef = 98FCA7E11E06CC3F0007A27F /* testDB.sql */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		98A2C86E1E12A5BC009A3522 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98A2C8651E12A5BC009A3522 /* sqlcipher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C0041981BFC382400ED2AD5;
+			remoteInfo = "SQLCipher iOS";
+		};
+		98A2C8701E12A5BC009A3522 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98A2C8651E12A5BC009A3522 /* sqlcipher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C0041B11BFC3B2200ED2AD5;
+			remoteInfo = "SQLCipher OSX";
+		};
+		98A2C8721E12A5BC009A3522 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98A2C8651E12A5BC009A3522 /* sqlcipher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C0041C31BFC3CC000ED2AD5;
+			remoteInfo = "SQLCipher tvOS";
+		};
+		98A2C8741E12A5BC009A3522 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98A2C8651E12A5BC009A3522 /* sqlcipher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C0041D61BFC3E2500ED2AD5;
+			remoteInfo = "SQLCipher watchOS";
+		};
+		98A2C8761E12A5BC009A3522 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98A2C8651E12A5BC009A3522 /* sqlcipher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
+			remoteInfo = sqlcipher;
+		};
+		98A2C8781E12A6DE009A3522 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98A2C8651E12A5BC009A3522 /* sqlcipher.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC045055464E500DB518D;
+			remoteInfo = sqlcipher;
+		};
 		98FCA7A21E03D7EA0007A27F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 98FCA6C31E0277260007A27F /* Project object */;
@@ -41,6 +90,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		98A2C8651E12A5BC009A3522 /* sqlcipher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sqlcipher.xcodeproj; path = sqlcipher/sqlcipher.xcodeproj; sourceTree = "<group>"; };
+		98A2C87B1E12A717009A3522 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		98A2C87D1E12BF48009A3522 /* testDBEncrypted.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = testDBEncrypted.sql; sourceTree = "<group>"; };
+		98A2C8B51E14EC46009A3522 /* QException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QException.h; sourceTree = "<group>"; };
+		98A2C8B61E14EC46009A3522 /* QException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QException.m; sourceTree = "<group>"; };
 		98FCA6CA1E0277740007A27F /* QDBValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDBValue.h; sourceTree = "<group>"; };
 		98FCA6CB1E0277740007A27F /* QDBValue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDBValue.m; sourceTree = "<group>"; };
 		98FCA6CC1E0277740007A27F /* QSQLiteOpenHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QSQLiteOpenHelper.h; sourceTree = "<group>"; };
@@ -48,7 +102,6 @@
 		98FCA7101E0279DB0007A27F /* QuickSQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuickSQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98FCA7121E0279DB0007A27F /* QuickSQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickSQLite.h; sourceTree = "<group>"; };
 		98FCA7131E0279DB0007A27F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98FCA72E1E028B380007A27F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 		98FCA7301E02A25C0007A27F /* QSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSQLite.h; sourceTree = "<group>"; };
 		98FCA7771E03CECC0007A27F /* demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98FCA77A1E03CECC0007A27F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -75,6 +128,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98A2C87C1E12A717009A3522 /* Security.framework in Frameworks */,
+				98A2C87A1E12A700009A3522 /* libsqlcipher.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +137,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98FCA7981E03CFED0007A27F /* libsqlite3.tbd in Frameworks */,
+				98A2C8921E13B87C009A3522 /* Security.framework in Frameworks */,
+				98A2C8911E13B868009A3522 /* libsqlcipher.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,16 +146,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98FCA7AE1E04406F0007A27F /* libsqlite3.tbd in Frameworks */,
+				98A2C8931E13B883009A3522 /* Security.framework in Frameworks */,
+				98A2C8901E13B855009A3522 /* libsqlcipher.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		98A2C8511E12A55F009A3522 /* subprojects */ = {
+			isa = PBXGroup;
+			children = (
+				98A2C8651E12A5BC009A3522 /* sqlcipher.xcodeproj */,
+			);
+			path = subprojects;
+			sourceTree = "<group>";
+		};
+		98A2C8661E12A5BC009A3522 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				98A2C86F1E12A5BC009A3522 /* SQLCipher.framework */,
+				98A2C8711E12A5BC009A3522 /* SQLCipher.framework */,
+				98A2C8731E12A5BC009A3522 /* SQLCipher.framework */,
+				98A2C8751E12A5BC009A3522 /* SQLCipher.framework */,
+				98A2C8771E12A5BC009A3522 /* libsqlcipher.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		98FCA6C21E0277260007A27F = {
 			isa = PBXGroup;
 			children = (
+				98A2C8511E12A55F009A3522 /* subprojects */,
 				98FCA6C91E0277740007A27F /* source */,
 				98FCA7111E0279DB0007A27F /* framework */,
 				98FCA7781E03CECC0007A27F /* demo */,
@@ -112,6 +190,8 @@
 		98FCA6C91E0277740007A27F /* source */ = {
 			isa = PBXGroup;
 			children = (
+				98A2C8B51E14EC46009A3522 /* QException.h */,
+				98A2C8B61E14EC46009A3522 /* QException.m */,
 				98FCA6CA1E0277740007A27F /* QDBValue.h */,
 				98FCA6CB1E0277740007A27F /* QDBValue.m */,
 				98FCA6CC1E0277740007A27F /* QSQLiteOpenHelper.h */,
@@ -143,7 +223,7 @@
 		98FCA72D1E028B380007A27F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				98FCA72E1E028B380007A27F /* libsqlite3.tbd */,
+				98A2C87B1E12A717009A3522 /* Security.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -188,6 +268,7 @@
 		98FCA7DF1E06CC3F0007A27F /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				98A2C87D1E12BF48009A3522 /* testDBEncrypted.sql */,
 				98FCA7E01E06CC3F0007A27F /* sampleSmallImage.png */,
 				98FCA7E11E06CC3F0007A27F /* testDB.sql */,
 			);
@@ -203,6 +284,7 @@
 			files = (
 				98FCA7291E028ADF0007A27F /* QSQLiteOpenHelper.h in Headers */,
 				98FCA7271E028ADF0007A27F /* QDBValue.h in Headers */,
+				98A2C8B71E14EC46009A3522 /* QException.h in Headers */,
 				98FCA7621E03B5B30007A27F /* QuickSQLite.h in Headers */,
 				98FCA7311E02A25C0007A27F /* QSQLite.h in Headers */,
 			);
@@ -224,6 +306,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				98A2C8791E12A6DE009A3522 /* PBXTargetDependency */,
 			);
 			name = framework;
 			productName = framework;
@@ -301,6 +384,12 @@
 			mainGroup = 98FCA6C21E0277260007A27F;
 			productRefGroup = 98FCA6D41E0277AF0007A27F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 98A2C8661E12A5BC009A3522 /* Products */;
+					ProjectRef = 98A2C8651E12A5BC009A3522 /* sqlcipher.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				98FCA70F1E0279DB0007A27F /* framework */,
@@ -309,6 +398,44 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		98A2C86F1E12A5BC009A3522 /* SQLCipher.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLCipher.framework;
+			remoteRef = 98A2C86E1E12A5BC009A3522 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		98A2C8711E12A5BC009A3522 /* SQLCipher.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLCipher.framework;
+			remoteRef = 98A2C8701E12A5BC009A3522 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		98A2C8731E12A5BC009A3522 /* SQLCipher.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLCipher.framework;
+			remoteRef = 98A2C8721E12A5BC009A3522 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		98A2C8751E12A5BC009A3522 /* SQLCipher.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLCipher.framework;
+			remoteRef = 98A2C8741E12A5BC009A3522 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		98A2C8771E12A5BC009A3522 /* libsqlcipher.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libsqlcipher.a;
+			remoteRef = 98A2C8761E12A5BC009A3522 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		98FCA70E1E0279DB0007A27F /* Resources */ = {
@@ -333,6 +460,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98A2C87E1E12BF48009A3522 /* testDBEncrypted.sql in Resources */,
 				98FCA7E31E06CC3F0007A27F /* testDB.sql in Resources */,
 				98FCA7E21E06CC3F0007A27F /* sampleSmallImage.png in Resources */,
 			);
@@ -364,6 +492,7 @@
 			files = (
 				98FCA7281E028ADF0007A27F /* QDBValue.m in Sources */,
 				98FCA72A1E028ADF0007A27F /* QSQLiteOpenHelper.m in Sources */,
+				98A2C8B81E14EC46009A3522 /* QException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +520,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		98A2C8791E12A6DE009A3522 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = sqlcipher;
+			targetProxy = 98A2C8781E12A6DE009A3522 /* PBXContainerItemProxy */;
+		};
 		98FCA7A31E03D7EA0007A27F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 98FCA7761E03CECC0007A27F /* demo */;
@@ -421,12 +555,52 @@
 		98FCA6C71E0277260007A27F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/subprojects/sqlcipher";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(BUILT_PRODUCTS_DIR)/libsqlcipher.a";
 			};
 			name = Debug;
 		};
 		98FCA6C81E0277260007A27F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/subprojects/sqlcipher";
+				OTHER_LDFLAGS = "$(BUILT_PRODUCTS_DIR)/libsqlcipher.a";
 			};
 			name = Release;
 		};
@@ -434,7 +608,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -453,9 +626,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.4;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -479,18 +652,23 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-DSQLITE_HAS_CODEC";
+				OTHER_LDFLAGS = "$(BUILT_PRODUCTS_DIR)/libsqlcipher.a";
 				PRODUCT_BUNDLE_IDENTIFIER = quickSQLite.framework;
 				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -502,7 +680,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -521,9 +698,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.4;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -535,24 +712,30 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-DSQLITE_HAS_CODEC";
+				OTHER_LDFLAGS = "$(BUILT_PRODUCTS_DIR)/libsqlcipher.a";
 				PRODUCT_BUNDLE_IDENTIFIER = quickSQLite.framework;
 				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7";
@@ -564,7 +747,7 @@
 		98FCA78C1E03CECC0007A27F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -603,6 +786,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -611,13 +795,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = quickSQLite.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		98FCA78D1E03CECC0007A27F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -650,6 +835,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -657,6 +843,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = quickSQLite.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -703,6 +890,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = demoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -751,6 +939,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = demoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

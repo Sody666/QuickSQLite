@@ -7,6 +7,8 @@
 
 #import "QSQLiteOpenHelper.h"
 #import "QDBValue.h"
+#import "QException.h"
+#import "QSQLite.h"
 
 #define kQDBPath ([NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0])
 #define kQDBDirectory @"QDatabases"
@@ -108,24 +110,24 @@
 
 #pragma mark -- Valid current database
 
--(BOOL)_isValidEncryptedDB:(sqlite3*)db{
+-(BOOL)_isValidDB:(sqlite3*)db{
     if(db == NULL){
         return NO;
     }
     
     sqlite3_stmt* stmt = NULL;
-    BOOL sqlcipher_valid = NO;
-    if(sqlite3_prepare_v2(db, "PRAGMA cipher_version;", -1, &stmt, NULL) == SQLITE_OK) {
+    BOOL isValid = NO;
+    if(sqlite3_prepare_v2(db, "PRAGMA user_version;", -1, &stmt, NULL) == SQLITE_OK) {
         if(sqlite3_step(stmt)== SQLITE_ROW) {
             const unsigned char *ver = sqlite3_column_text(stmt, 0);
             if(ver != NULL) {
-                sqlcipher_valid = YES;
+                isValid = YES;
             }
         }
         sqlite3_finalize(stmt);
     }
     
-    return sqlcipher_valid;
+    return isValid;
 }
 
 -(sqlite3*)_openDatabaseInPath:(NSString*)path withKey:(NSString*)key{
@@ -134,25 +136,24 @@
         return result;
     }
     
-    const char* utf8Key = [path UTF8String];
-    unsigned long keyLength = strlen(utf8Key);
-    
     BOOL existed = [[NSFileManager defaultManager] fileExistsAtPath:path];
-    if(sqlite3_open(utf8Key, &result) != SQLITE_OK){
+    if(sqlite3_open([path UTF8String], &result) != SQLITE_OK){
         return NULL;
     }
     
     if(key.length > 0){
+        const char* utf8Key = [key UTF8String];
+        unsigned long keyLength = strlen(utf8Key);
         if(existed){
             sqlite3_key(result, utf8Key, (int)keyLength);
         }else{
             // set the key to brand new db
             sqlite3_rekey(result, utf8Key, (int)keyLength);
         }
-        
-        if(![self _isValidEncryptedDB:result]){
-            CLOSE_DB(result);
-        }
+    }
+    
+    if(![self _isValidDB:result]){
+        CLOSE_DB(result);
     }
     
     return result;
@@ -169,13 +170,23 @@
     }
     
     if(error){
-        @throw [NSException exceptionWithName:@"Quick SQLite openning database" reason:error.localizedFailureReason userInfo:nil];
+        @throw [QException exceptionForReason:error.localizedFailureReason userInfo:nil];
     }
     
     return folder;
 }
 
 
+#define THROW_EXCEPTION(reason,key) do{\
+    NSString* fullReason = nil;\
+    if(key.length > 0){\
+        fullReason = QFormatString(@"%@ claimed to be encrypted", reason);\
+    }else{\
+        fullReason = QFormatString(@"%@ claimed to be clear", reason);\
+    }\
+\
+    @throw [QException exceptionForReason:fullReason userInfo:nil];\
+}while(0)
 - (void)_validDatabaseWithKey:(NSString*)key
 {
     NSString	*dbPath = [self _databaseDiretory];
@@ -190,7 +201,7 @@
     if ([fileManager fileExistsAtPath:fullPath]) {
         sandboxDB = [self _openDatabaseInPath:fullPath withKey:key];
         if (sandboxDB == NULL) {
-            @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Failed to open sandbox database file" userInfo:nil];
+            THROW_EXCEPTION(@"Failed to open sandbox database file", key);
         }
         
         if(self.databaseVersion <= [self versionForDatabase:sandboxDB]){
@@ -208,14 +219,14 @@
         
         if(bundleDBPath.length > 0){
             if(![fileManager fileExistsAtPath:bundleDBPath]){
-                @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Path of bundle database file is invalid" userInfo:nil];
+                @throw [QException exceptionForReason:@"Database file is invalid." userInfo:@{@"path":bundleDBPath}];
             }
             
             [fileManager copyItemAtPath:bundleDBPath toPath:tempFullPath error:nil];
             
             bundleDB = [self _openDatabaseInPath:tempFullPath withKey:key];
             if (bundleDB == NULL) {
-                @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Failed to open bundle database file" userInfo:nil];
+                THROW_EXCEPTION(@"Failed to open bundle database file", key);
             }
         }
     }
@@ -237,7 +248,7 @@
                     CLOSE_DB(sandboxDB);
                     CLOSE_DB(bundleDB);
                     [fileManager removeItemAtPath:tempFullPath error:nil];
-                    @throw [NSException exceptionWithName:@"Quick SQLite validating " reason:@"Migration failed" userInfo:nil];
+                    @throw [QException exceptionForReason:@"Migration failed" userInfo:nil];
                 }
             }else{
                 if(bundleVersion > sandboxVersion) {
@@ -254,7 +265,7 @@
     } else if(sandboxDB == NULL && bundleDB == NULL) {
         sandboxDB = [self _openDatabaseInPath:fullPath withKey:key];
         if (sandboxDB == NULL) {
-            @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Creating database failed" userInfo:nil];
+            THROW_EXCEPTION(@"Failed to create database file", key);
         }
         
         BOOL shouldSave = NO;
@@ -277,7 +288,7 @@
     // 心好累啊，jb requirements
     sandboxDB = [self _openDatabaseInPath:fullPath withKey:key];
     if (sandboxDB == NULL) {
-        @throw [NSException exceptionWithName:@"Quick SQLite validating database" reason:@"Creating database failed" userInfo:nil];
+        THROW_EXCEPTION(@"Failed to open database file", key);
     }
     
     int oldVersion = [self versionForDatabase:sandboxDB];
@@ -301,7 +312,7 @@
     NSString* currentDatabasePath = [NSString stringWithFormat:@"%@/%@",[self _databaseDiretory], self.databaseName];
     _currentDatabase = [self _openDatabaseInPath:currentDatabasePath withKey:key];
     if (_currentDatabase == NULL) {
-        @throw [NSException exceptionWithName:@"Quick SQLite openning database" reason:@"Openning sqlite3 database failed" userInfo:nil];
+        @throw [QException exceptionForReason:@"Failed to open database fiel" userInfo:@{@"path":currentDatabasePath}];
     }
 }
 #pragma mark -- database version getter and setter

@@ -5,6 +5,7 @@ Quick SQLite项目的目标是简化iOS环境中sqlite数据库的使用，免�
 - 支持存储过程
 - 支持bundle数据库自动更新替换
 - 支持标准的加密数据库
+
 ## 例子
 ```objective-c
 // 插入数据

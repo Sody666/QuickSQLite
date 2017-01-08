@@ -12,6 +12,7 @@ typedef enum : NSUInteger {
     QDBDataTypeDouble,
     QDBDataTypeText,
     QDBDataTypeBlob,
+    QDBDataTypeNull,
     
 } QDBDataType;
 
@@ -130,6 +131,9 @@ typedef enum : NSUInteger {
             case SQLITE_TEXT:
                 self.dataType = QDBDataTypeText;
                 break;
+            case SQLITE_NULL:
+                self.dataType = QDBDataTypeNull;
+                break;
         }
     }
     
@@ -145,6 +149,9 @@ typedef enum : NSUInteger {
             break;
         case QDBDataTypeBlob:
             self.contentData = [NSData dataWithBytes:sqlite3_column_blob(stmt, index) length:sqlite3_column_bytes(stmt, index)];
+            break;
+        case QDBDataTypeNull:
+            self.contentData = [NSNull null];
             break;
         default:{
             @throw [NSException exceptionWithName:@"Quick Sqlite: Unbinding Values." reason:@"Unsupported data type" userInfo:nil];

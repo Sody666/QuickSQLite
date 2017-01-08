@@ -10,6 +10,14 @@
 
 @class QSQLiteOpenHelper;
 @class QDBValue;
+
+typedef NS_ENUM(NSUInteger, QDBPageSize) {
+    QDBPageSizeSmall    = 512,
+    QDBPageSizeDefault  = 2 * QDBPageSizeSmall,
+    QDBPageSizeMedium   = 2 * QDBPageSizeDefault,
+    QDBPageSizeLarge    = 2 * QDBPageSizeMedium,
+};
+
 @protocol QSQLiteOpenHelperDelegate <NSObject>
 @optional
 /**
@@ -72,30 +80,59 @@
 @interface QSQLiteOpenHelper : NSObject
 
 /**
- *  Initialize the database with name and version.
- *
- *  @param name    database name
- *  @param version database version
- *
- *  @return helper initialized
+ Initialize database with name version and delgate and version as 0.
+ Note: for database which is not encrypted only.
+ 
+ @param name name of the database
+ @param delegate delegate for helper
+ @return helper initialized
+ */
+- (id)initWithName:(NSString *)name
+      openDelegate:(id)delegate;
+
+/**
+ Initialize database with name version and delgate.
+ Note: for database which is not encrypted only.
+
+ @param name name of the database
+ @param version version of the database
+ @param delegate delegate for helper
+ @return helper initialized
  */
 - (id)initWithName:(NSString *)name
            version:(int)version
       openDelegate:(id)delegate;
 
 /**
- *  Initialize the encrypted database with key, name and version.
- *  Note: If the database can't be operated with key, an exception will be thrown.
- *
- *  @param name    database name
- *  @param key     key to encrypte database
- *  @param version database version
- *
- *  @return helper initialized
+ Initialize database with name, key and delegate.
+ Note: key is required for encrypted database. page size will be 1024.
+
+ @param name name of the database
+ @param key key for the database
+ @param delegate delegate for helper
+ @return helper initialized
+ */
+- (id)initWithName:(NSString *)name
+               key:(NSString*)key
+      openDelegate:(id)delegate;
+
+/**
+ Initialize the database with name, key, version and page size.
+ Note: key and page size is required for encrypted database.
+       If your db is not encrypted, please provide key as nil, and 
+       page size will be ignored.
+
+ @param name name of the database
+ @param key key for encrypted database
+ @param version database version
+ @param pageSize page size of the database
+ @param delegate delegate for helper
+ @return helper initialized
  */
 - (id)initWithName:(NSString *)name
                key:(NSString*)key
            version:(int)version
+          pageSize:(QDBPageSize)pageSize
       openDelegate:(id)delegate;
 #pragma mark - traditional sql interface
 /**

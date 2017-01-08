@@ -78,7 +78,7 @@
 @property (nonatomic, strong) NSString* databaseName;
 @property (nonatomic, assign) int databaseVersion;
 @property (weak) id<QSQLiteOpenHelperDelegate>openDelegate;
-
+@property (nonatomic, assign) QDBPageSize pageSize;
 @end
 
 #define CLOSE_DB(db) do{if((db) != NULL){sqlite3_close((db)); (db)=NULL;} }while(0)
@@ -86,14 +86,34 @@
 @implementation QSQLiteOpenHelper
 @synthesize currentDatabase = _currentDatabase;
 
+- (id)initWithName:(NSString *)name
+      openDelegate:(id)delegate{
+    return [self initWithName:name version:0 openDelegate:delegate];
+}
+
 - (id)initWithName:(NSString *)name version:(int)version openDelegate:(id)delegate
 {
-    return [self initWithName:name key:nil version:version openDelegate:delegate];
+    return [self initWithName:name
+                          key:nil
+                      version:version
+                     pageSize:QDBPageSizeDefault
+                 openDelegate:delegate];
+}
+
+- (id)initWithName:(NSString *)name
+               key:(NSString*)key
+      openDelegate:(id)delegate{
+    return [self initWithName:name
+                          key:key
+                      version:0
+                     pageSize:QDBPageSizeDefault
+                 openDelegate:delegate];
 }
 
 - (id)initWithName:(NSString *)name
                key:(NSString*)key
            version:(int)version
+          pageSize:(QDBPageSize)pageSize
       openDelegate:(id)delegate{
     self = [super init];
     if (self) {
@@ -101,6 +121,7 @@
         _currentDatabase = NULL;
         _databaseVersion = version;
         _openDelegate = delegate;
+        _pageSize = pageSize;
         [self _validDatabaseWithKey:key];
         [self _openCurrentDatabaseWithKey:key];
     }
@@ -146,9 +167,7 @@
         unsigned long keyLength = strlen(utf8Key);
         if(existed){
             sqlite3_key(result, utf8Key, (int)keyLength);
-        }else{
-            // set the key to brand new db
-            sqlite3_rekey(result, utf8Key, (int)keyLength);
+            [self runPragma:[NSString stringWithFormat:@"cipher_page_size = %lu", (unsigned long)self.pageSize] forDB:result];
         }
     }
     
@@ -315,6 +334,16 @@
         @throw [QException exceptionForReason:@"Failed to open database fiel" userInfo:@{@"path":currentDatabasePath}];
     }
 }
+
+-(void)runPragma:(NSString*)pragma forDB:(sqlite3*)db{
+    if(pragma.length == 0){
+        return;
+    }
+    
+    NSString *query = [NSString stringWithFormat:@"PRAGMA %@", pragma];
+    
+    sqlite3_exec(db, [query UTF8String], NULL, NULL, NULL);
+}
 #pragma mark -- database version getter and setter
 - (int)versionForDatabase:(sqlite3 *)db
 {
@@ -329,9 +358,7 @@
 
 -(void)updateDatabase:(sqlite3*)db toVersion:(int)version
 {
-	NSString *query = [NSString stringWithFormat:@"PRAGMA user_version = %d", version];
-
-	sqlite3_exec(db, [query UTF8String], NULL, NULL, NULL);
+    [self runPragma:[NSString stringWithFormat:@"user_version = %d", version] forDB:db];
 }
 
 
@@ -580,7 +607,6 @@
 }
 
 -(void)close{
-    sqlite3_close(_currentDatabase);
-    _currentDatabase = NULL;
+    CLOSE_DB(_currentDatabase);
 }
 @end

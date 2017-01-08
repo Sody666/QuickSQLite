@@ -16,4 +16,6 @@
 
 #define QNumber(x) ((NSNumber*)(x))
 
+#define isNull(x) (x == nil || [x isKindOfClass:[NSNull class]])
+
 #endif /* QSQLite_h */

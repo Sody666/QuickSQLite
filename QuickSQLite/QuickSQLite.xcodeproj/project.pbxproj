@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		98A2C87A1E12A700009A3522 /* libsqlcipher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C8771E12A5BC009A3522 /* libsqlcipher.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		98A2C87A1E12A700009A3522 /* libsqlcipher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C8771E12A5BC009A3522 /* libsqlcipher.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		98A2C87C1E12A717009A3522 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C87B1E12A717009A3522 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		98A2C87E1E12BF48009A3522 /* testDBEncrypted.sql in Resources */ = {isa = PBXBuildFile; fileRef = 98A2C87D1E12BF48009A3522 /* testDBEncrypted.sql */; };
 		98A2C8901E13B855009A3522 /* libsqlcipher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C8771E12A5BC009A3522 /* libsqlcipher.a */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -16,6 +16,7 @@
 		98A2C8931E13B883009A3522 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C87B1E12A717009A3522 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		98A2C8B71E14EC46009A3522 /* QException.h in Headers */ = {isa = PBXBuildFile; fileRef = 98A2C8B51E14EC46009A3522 /* QException.h */; };
 		98A2C8B81E14EC46009A3522 /* QException.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A2C8B61E14EC46009A3522 /* QException.m */; };
+		98CFEA481E1E8D9000B2FA95 /* QException.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A2C8B61E14EC46009A3522 /* QException.m */; };
 		98FCA7271E028ADF0007A27F /* QDBValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA6CA1E0277740007A27F /* QDBValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98FCA7281E028ADF0007A27F /* QDBValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CB1E0277740007A27F /* QDBValue.m */; };
 		98FCA7291E028ADF0007A27F /* QSQLiteOpenHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA6CC1E0277740007A27F /* QSQLiteOpenHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -500,6 +501,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98CFEA481E1E8D9000B2FA95 /* QException.m in Sources */,
 				98FCA7961E03CFAC0007A27F /* QDBValue.m in Sources */,
 				98FCA7811E03CECC0007A27F /* ViewController.m in Sources */,
 				98FCA77E1E03CECC0007A27F /* AppDelegate.m in Sources */,

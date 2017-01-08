@@ -34,7 +34,7 @@
     NSString* encryptedDBName = @"testDBEncrypted.sql";
     BindUTData(dbName, encryptedDBName);
     QSQLiteOpenHelper* helper = [[QSQLiteOpenHelper alloc] initWithName:dbName version:1 openDelegate:self];
-    QSQLiteOpenHelper* helperX = [[QSQLiteOpenHelper alloc] initWithName:encryptedDBName key:@"quicksqlite" version:1 openDelegate:self];
+    QSQLiteOpenHelper* helperX = [[QSQLiteOpenHelper alloc] initWithName:encryptedDBName key:@"quicksqlite" version:1 pageSize:QDBPageSizeDefault openDelegate:self];
     
     NSBundle* bundle = [NSBundle bundleForClass:[self class]];
     NSData* imageData = [NSData dataWithContentsOfFile:[bundle pathForResource:@"sampleSmallImage" ofType:@"png"]];
@@ -364,68 +364,68 @@
 //
 // Seconds for clear database: 36.128776.2
 // Seconds for encrypted database: 39.461243.2
-- (void)testNormalPerformance {
-    QSQLiteOpenHelper* helper = TData(@"helper");
-    QSQLiteOpenHelper* helperX = TData(@"helperX");
-    NSDate* currentDate = [NSDate date];
-    
-    for(int i=0; i< 10000; i++){
-        [helper insert:kTableName values:@{kColumnName:@"Alice"}];
-    }
-    
-    NSLog(@"Seconds for clear database: %f.2", [NSDate date].timeIntervalSince1970 - currentDate.timeIntervalSince1970);
-    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil] == 10000, @"应该有一万份记录");
-    
-    
-    
-    currentDate = [NSDate date];
-    
-    for(int i=0; i< 10000; i++){
-        [helperX insert:kTableName values:@{kColumnName:@"Alice"}];
-    }
-    
-    NSLog(@"Seconds for encrypted database: %f.2", [NSDate date].timeIntervalSince1970 - currentDate.timeIntervalSince1970);
-    long count = 0;
-    XCTAssertTrue((count = [helperX recordCountInTable:kTableName primaryKey:kColumnId condition:nil]) == 10000, @"应该有一万份记录");
-}
+//- (void)testNormalPerformance {
+//    QSQLiteOpenHelper* helper = TData(@"helper");
+//    QSQLiteOpenHelper* helperX = TData(@"helperX");
+//    NSDate* currentDate = [NSDate date];
+//    
+//    for(int i=0; i< 10000; i++){
+//        [helper insert:kTableName values:@{kColumnName:@"Alice"}];
+//    }
+//    
+//    NSLog(@"Seconds for clear database: %f.2", [NSDate date].timeIntervalSince1970 - currentDate.timeIntervalSince1970);
+//    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil] == 10000, @"应该有一万份记录");
+//    
+//    
+//    
+//    currentDate = [NSDate date];
+//    
+//    for(int i=0; i< 10000; i++){
+//        [helperX insert:kTableName values:@{kColumnName:@"Alice"}];
+//    }
+//    
+//    NSLog(@"Seconds for encrypted database: %f.2", [NSDate date].timeIntervalSince1970 - currentDate.timeIntervalSince1970);
+//    long count = 0;
+//    XCTAssertTrue((count = [helperX recordCountInTable:kTableName primaryKey:kColumnId condition:nil]) == 10000, @"应该有一万份记录");
+//}
 
 // demoSeconds for clear database: 0.330358.2
 // demoSeconds for encrypted database: 0.288266.2
-- (void)testTransactionPerformance {
-    NSError* error;
-    QSQLiteOpenHelper* helper = TData(@"helper");
-    QSQLiteOpenHelper* helperX = TData(@"helperX");
-    NSDate* currentDate = [NSDate date];
-    
-    XCTAssertTrue([helper beginTransactionWithError:&error], @"应该能正常开启存储过程");
-    if(error){
-        NSLog(@"ERROR: %@", error);
-        error = nil;
-    }
-    for(int i=0; i< 10000; i++){
-        [helper insert:kTableName values:@{kColumnName:@"Alice"}];
-    }
-    [helper endTransaction];
-    NSLog(@"Seconds for clear database: %f.2", [NSDate date].timeIntervalSince1970 - currentDate.timeIntervalSince1970);
-    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil] == 10000, @"应该有一万份记录");
-    
-    
-    
-    currentDate = [NSDate date];
-    
-    XCTAssertTrue([helperX beginTransactionWithError:&error], @"应该能正常开启存储过程");
-    if(error){
-        NSLog(@"ERROR: %@", error);
-        error = nil;
-    }
-    for(int i=0; i< 10000; i++){
-        [helperX insert:kTableName values:@{kColumnName:@"Alice"}];
-    }
-    [helperX endTransaction];
-    
-    NSLog(@"Seconds for encrypted database: %f.2", [NSDate date].timeIntervalSince1970 - currentDate.timeIntervalSince1970);
-    XCTAssertTrue([helperX recordCountInTable:kTableName primaryKey:kColumnId condition:nil] == 10000, @"应该有一万份记录");
-}
+//- (void)testTransactionPerformance {
+//    NSError* error;
+//    QSQLiteOpenHelper* helper = TData(@"helper");
+//    QSQLiteOpenHelper* helperX = TData(@"helperX");
+//    NSDate* currentDate = [NSDate date];
+//    
+//    XCTAssertTrue([helper beginTransactionWithError:&error], @"应该能正常开启存储过程");
+//    if(error){
+//        NSLog(@"ERROR: %@", error);
+//        error = nil;
+//    }
+//    for(int i=0; i< 10000; i++){
+//        [helper insert:kTableName values:@{kColumnName:@"Alice"}];
+//    }
+//    [helper endTransaction];
+//    NSLog(@"Seconds for clear database: %f.2", [NSDate date].timeIntervalSince1970 - currentDate.timeIntervalSince1970);
+//    XCTAssertTrue([helper recordCountInTable:kTableName primaryKey:kColumnId condition:nil] == 10000, @"应该有一万份记录");
+//    
+//    
+//    
+//    currentDate = [NSDate date];
+//    
+//    XCTAssertTrue([helperX beginTransactionWithError:&error], @"应该能正常开启存储过程");
+//    if(error){
+//        NSLog(@"ERROR: %@", error);
+//        error = nil;
+//    }
+//    for(int i=0; i< 10000; i++){
+//        [helperX insert:kTableName values:@{kColumnName:@"Alice"}];
+//    }
+//    [helperX endTransaction];
+//    
+//    NSLog(@"Seconds for encrypted database: %f.2", [NSDate date].timeIntervalSince1970 - currentDate.timeIntervalSince1970);
+//    XCTAssertTrue([helperX recordCountInTable:kTableName primaryKey:kColumnId condition:nil] == 10000, @"应该有一万份记录");
+//}
 
 -(void)testEncryptedDBReadWrite{
     QSQLiteOpenHelper* helperX = TData(@"helperX");
@@ -446,10 +446,10 @@
     QSQLiteOpenHelper* helperX = TData(@"helperX");
     [helperX close];
     
-    XCTAssertThrows([[QSQLiteOpenHelper alloc] initWithName:TData(@"encryptedDBName") key:@"badKey" version:1 openDelegate:self], @"错误密码打开应该要引起异常");
-    XCTAssertThrows([[QSQLiteOpenHelper alloc] initWithName:TData(@"encryptedDBName") key:@"" version:1 openDelegate:self], @"空密码打开应该要引起异常");
-    XCTAssertThrows([[QSQLiteOpenHelper alloc] initWithName:TData(@"encryptedDBName") key:nil version:1 openDelegate:self], @"nil密码打开应该要引起异常");
-    XCTAssertThrows([[QSQLiteOpenHelper alloc] initWithName:TData(@"dbName") key:@"fake" version:1 openDelegate:self], @"用密钥打开明文数据库要引起异常");
+    XCTAssertThrows([[QSQLiteOpenHelper alloc] initWithName:TData(@"encryptedDBName") key:@"badKey" version:1  pageSize:QDBPageSizeDefault openDelegate:self], @"错误密码打开应该要引起异常");
+    XCTAssertThrows([[QSQLiteOpenHelper alloc] initWithName:TData(@"encryptedDBName") key:@"" version:1  pageSize:QDBPageSizeDefault openDelegate:self], @"空密码打开应该要引起异常");
+    XCTAssertThrows([[QSQLiteOpenHelper alloc] initWithName:TData(@"encryptedDBName") key:nil version:1  pageSize:QDBPageSizeDefault openDelegate:self], @"nil密码打开应该要引起异常");
+    XCTAssertThrows([[QSQLiteOpenHelper alloc] initWithName:TData(@"dbName") key:@"fake" version:1  pageSize:QDBPageSizeDefault openDelegate:self], @"用密钥打开明文数据库要引起异常");
 }
 
 #pragma mark - toolkits

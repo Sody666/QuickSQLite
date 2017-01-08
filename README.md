@@ -64,3 +64,33 @@ framework分为两个版本：
 此版本把SQLCipher编译进来了。
 ### 直接下载使用源代码
 把source下所有的源文件拷贝到你的项目里就可以。但你要处理好跟SQLCipher的关系。
+## 安装数据库
+绝大部分的情况是，你可能会在开发机上准备好一个sqlite db，然后把它放到app的bundle里，然后在初始化helper的时候，把数据库文件指向过去就好。在准备数据库的时候，为了方便使用（非本框架的要求），请注意以下事项：
+- 每一个column最好有默认值。这样在你插入数据的时候，默认值会替换你缺的部分。否则，在你查询此份数据的时候，将会返回NSNull，你将要处理好它。
+- 如果你要加密你的数据库，在加密的时候注意它的pageSize。初始化helper的时候，把pageSize作为参数传递进来。必须pageSize和密钥都正确，才能正确打开一个加密数据库。
+
+### 使用helper打开数据库
+完备版本的接口是：
+```objective-c
+/**
+ Initialize the database with name, key, version and page size.
+ Note: key and page size is required for encrypted database.
+       If your db is not encrypted, please provide key as nil, and 
+       page size will be ignored.
+
+ @param name name of the database
+ @param key key for encrypted database
+ @param version database version
+ @param pageSize page size of the database
+ @param delegate delegate for helper
+ @return helper initialized
+ */
+- (id)initWithName:(NSString *)name
+               key:(NSString*)key
+           version:(int)version
+          pageSize:(QDBPageSize)pageSize
+      openDelegate:(id)delegate;
+```
+其中，name是保存到沙盒里的数据库的名称。
+完成的过程请参看下图：
+[![数据库安装到app 沙盒的过程](https://github.com/Sody666/QuickSQLite/blob/master/resources/QuickSQLiteInstall.png "数据库安装到app 沙盒的过程")](https://github.com/Sody666/QuickSQLite/blob/master/resources/QuickSQLiteInstall.png "数据库安装到app 沙盒的过程")

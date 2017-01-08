@@ -46,4 +46,11 @@ Quick SQLite项目的目标是简化iOS环境中sqlite数据库的使用，免�
     [helper endTransaction];
 }
 
+// 打开加密数据库
+{
+	// 在真实的环境中，不能这样传递数据库的密钥
+	// 也就是，不能让别人通过破解你的ipa获得你的数据库密钥
+	// 最好做到每台设备上的密钥都不一样
+	helper = [[QSQLiteOpenHelper alloc] initWithName:kDBName key:kEncryptedDBKey openDelegate:self];
+}
 ```

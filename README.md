@@ -54,3 +54,12 @@ Quick SQLite项目的目标是简化iOS环境中sqlite数据库的使用，免�
 	helper = [[QSQLiteOpenHelper alloc] initWithName:kDBName key:kEncryptedDBKey openDelegate:self];
 }
 ```
+## 安装
+### 直接使用现成的Framework
+你可以直接使用本repo中，Release文件夹中的发布出来的framework。framework分为两个版本：
+1. 共享版本。此版本没有把SQLCipher编辑进来，因而文件也比较小。当你的app里有其他framework使用了SQLCipher的时候，推荐用这个版本。解压此文件夹，你会看到里面有libSQlcipher，这是编译framework同时产生的。你需要用的时候可以使用。
+2.独立版本。此版本把SQLCipher编译进来了。
+你只要把framework下载，然后添加到项目里就可以，不用设置任何东西（有些时候需要在Build Phrases->Link Binary With Libries里，设置本框架为Optional）。
+
+### 直接下载使用源代码
+把source下所有的源文件拷贝到你的项目里就可以。但你要处理好跟SQLCipher的关系。

@@ -1,0 +1,6 @@
+framework module QuickVFL {
+  umbrella header "QuickVFL.h"
+
+  export *
+  module * { export * }
+}

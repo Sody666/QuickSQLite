@@ -1,0 +1,30 @@
+{
+    "labelStatus":{
+        ":viewData":{
+            "className":"UILabel",
+            "numberOfLines":0,
+            "fontSize": 16,
+            "boarderColor":"#FF0000",
+        }
+    },
+    "textFieldCount":{
+        ":viewData":{
+            "className":"UITextField",
+            "placeHolder":"Count of Inserting",
+            "text":"10"
+        }
+    },
+    "buttonStart_":{
+        ":viewData":{
+            "className":"UIButton",
+            "text":"Start",
+            "backgroundColor":"#FF00FF",
+            "tapEvent":"onStartButtonTapped:"
+        }
+    },
+    ":scrollV":"scrollViewContent",
+    ":layout":"
+        H:|-[textFieldCount]-|;
+        V:|-10-[textFieldCount]-[labelStatus]-(>=10)-[buttonStart_]-| {left, right};
+    "
+}

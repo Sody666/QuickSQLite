@@ -1,0 +1,17 @@
+{
+    "tableViewPersons":{
+        ":className":"UITableView"
+    },
+    "buttonAdd_":{
+        ":viewData":{
+            "className":"UIButton",
+            "text":"Add One Person",
+            "tapEvent":"onAddButtonTapped:",
+            "backgroundColor":"#FFFF00"
+        }
+    }
+    ":layout":"
+        H:|[_tableViewPersons]|;
+        V:|[_tableViewPersons]-10-[buttonAdd_(44)]-| {left, right};
+    "
+}

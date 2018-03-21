@@ -1,0 +1,1000 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		D34122A9206246890019149C /* BuildUniversal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = D34122AA206246890019149C /* Build configuration list for PBXAggregateTarget "BuildUniversal" */;
+			buildPhases = (
+				D34122AD206246C10019149C /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = BuildUniversal;
+			productName = BuildUniversal;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		D3411C01206244160019149C /* QuickSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = D3411BFF206244160019149C /* QuickSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D34122502062454E0019149C /* QDBException.h in Headers */ = {isa = PBXBuildFile; fileRef = D34122492062454E0019149C /* QDBException.h */; };
+		D34122512062454E0019149C /* QDBValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D341224A2062454E0019149C /* QDBValue.m */; };
+		D34122522062454E0019149C /* QSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = D341224B2062454E0019149C /* QSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D34122532062454E0019149C /* QSQLiteOpenHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = D341224C2062454E0019149C /* QSQLiteOpenHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D34122542062454E0019149C /* QSQLiteOpenHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D341224D2062454E0019149C /* QSQLiteOpenHelper.m */; };
+		D34122552062454E0019149C /* QDBException.m in Sources */ = {isa = PBXBuildFile; fileRef = D341224E2062454E0019149C /* QDBException.m */; };
+		D34122562062454E0019149C /* QDBValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D341224F2062454E0019149C /* QDBValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3412281206245CC0019149C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3412280206245CC0019149C /* Assets.xcassets */; };
+		D3412287206245CC0019149C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D3412286206245CC0019149C /* main.m */; };
+		D341229B206245DE0019149C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D341229A206245DE0019149C /* Assets.xcassets */; };
+		D34122A1206245DE0019149C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122A0206245DE0019149C /* main.m */; };
+		D34122A6206246380019149C /* libsqlcipher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3412248206245190019149C /* libsqlcipher.a */; };
+		D34122A8206246410019149C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34122A7206246410019149C /* Security.framework */; };
+		D34122C020624BA90019149C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122AE20624BA90019149C /* AppDelegate.m */; };
+		D34122DA20624C2B0019149C /* DataCenterClear.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122C920624C2B0019149C /* DataCenterClear.m */; };
+		D34122DB20624C2B0019149C /* DataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122CA20624C2B0019149C /* DataCenter.m */; };
+		D34122DC20624C2B0019149C /* DataCenterSecret.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122CB20624C2B0019149C /* DataCenterSecret.m */; };
+		D34122DD20624C2B0019149C /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122D120624C2B0019149C /* Person.m */; };
+		D34122DE20624C2B0019149C /* PersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122D420624C2B0019149C /* PersonListViewController.m */; };
+		D34122DF20624C2B0019149C /* PerformanceTesterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122D620624C2B0019149C /* PerformanceTesterViewController.m */; };
+		D34122E020624C2B0019149C /* PersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122D820624C2B0019149C /* PersonTableViewCell.m */; };
+		D34122E120624CA90019149C /* PersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122D420624C2B0019149C /* PersonListViewController.m */; };
+		D34122E220624CA90019149C /* PerformanceTesterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122D620624C2B0019149C /* PerformanceTesterViewController.m */; };
+		D34122E320624CAF0019149C /* DataCenterClear.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122C920624C2B0019149C /* DataCenterClear.m */; };
+		D34122E420624CAF0019149C /* DataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122CA20624C2B0019149C /* DataCenter.m */; };
+		D34122E520624CAF0019149C /* DataCenterSecret.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122CB20624C2B0019149C /* DataCenterSecret.m */; };
+		D34122E620624CB30019149C /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122D120624C2B0019149C /* Person.m */; };
+		D34122E720624CB90019149C /* PersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122D820624C2B0019149C /* PersonTableViewCell.m */; };
+		D34122E820624CC40019149C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D34122AE20624BA90019149C /* AppDelegate.m */; };
+		D34122EB20624FBD0019149C /* QuickVFL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34122EA20624FBD0019149C /* QuickVFL.framework */; };
+		D34122EC20624FFA0019149C /* QuickVFL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34122EA20624FBD0019149C /* QuickVFL.framework */; };
+		D34122EE206250460019149C /* PerformanceTesterViewController.json in Resources */ = {isa = PBXBuildFile; fileRef = D34122ED206250460019149C /* PerformanceTesterViewController.json */; };
+		D34122EF206250460019149C /* PerformanceTesterViewController.json in Resources */ = {isa = PBXBuildFile; fileRef = D34122ED206250460019149C /* PerformanceTesterViewController.json */; };
+		D34122F1206253470019149C /* PersonListViewController.json in Resources */ = {isa = PBXBuildFile; fileRef = D34122F0206253470019149C /* PersonListViewController.json */; };
+		D34122F2206253470019149C /* PersonListViewController.json in Resources */ = {isa = PBXBuildFile; fileRef = D34122F0206253470019149C /* PersonListViewController.json */; };
+		D34122F4206254A10019149C /* PersonTableViewCell.json in Resources */ = {isa = PBXBuildFile; fileRef = D34122F3206254A10019149C /* PersonTableViewCell.json */; };
+		D34122F5206254A10019149C /* PersonTableViewCell.json in Resources */ = {isa = PBXBuildFile; fileRef = D34122F3206254A10019149C /* PersonTableViewCell.json */; };
+		D34122F6206257400019149C /* QDBException.m in Sources */ = {isa = PBXBuildFile; fileRef = D341224E2062454E0019149C /* QDBException.m */; };
+		D34122F7206257430019149C /* QDBValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D341224A2062454E0019149C /* QDBValue.m */; };
+		D34122F8206257460019149C /* QSQLiteOpenHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D341224D2062454E0019149C /* QSQLiteOpenHelper.m */; };
+		D34122F9206257B10019149C /* libsqlcipher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3412248206245190019149C /* libsqlcipher.a */; };
+		D34122FA206257BA0019149C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34122A7206246410019149C /* Security.framework */; };
+		D34122FE20625B650019149C /* secretPersons.db in Resources */ = {isa = PBXBuildFile; fileRef = D34122FD20625B650019149C /* secretPersons.db */; };
+		D34122FF20625B650019149C /* secretPersons.db in Resources */ = {isa = PBXBuildFile; fileRef = D34122FD20625B650019149C /* secretPersons.db */; };
+		D3412300206264D20019149C /* QuickSQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3411BFC206244160019149C /* QuickSQLite.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D341223F206245190019149C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3412236206245190019149C /* sqlcipher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C0041981BFC382400ED2AD5;
+			remoteInfo = "SQLCipher iOS";
+		};
+		D3412241206245190019149C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3412236206245190019149C /* sqlcipher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C0041B11BFC3B2200ED2AD5;
+			remoteInfo = "SQLCipher OSX";
+		};
+		D3412243206245190019149C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3412236206245190019149C /* sqlcipher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C0041C31BFC3CC000ED2AD5;
+			remoteInfo = "SQLCipher tvOS";
+		};
+		D3412245206245190019149C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3412236206245190019149C /* sqlcipher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C0041D61BFC3E2500ED2AD5;
+			remoteInfo = "SQLCipher watchOS";
+		};
+		D3412247206245190019149C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3412236206245190019149C /* sqlcipher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
+			remoteInfo = sqlcipher;
+		};
+		D34122FB206257D10019149C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3412236206245190019149C /* sqlcipher.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC045055464E500DB518D;
+			remoteInfo = sqlcipher;
+		};
+		D3412301206264E10019149C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3411BF3206244160019149C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D3411BFB206244160019149C;
+			remoteInfo = QuickSQLite;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D3411BFC206244160019149C /* QuickSQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuickSQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3411BFF206244160019149C /* QuickSQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickSQLite.h; sourceTree = "<group>"; };
+		D3411C00206244160019149C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3412236206245190019149C /* sqlcipher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sqlcipher.xcodeproj; path = sqlcipher/sqlcipher.xcodeproj; sourceTree = "<group>"; };
+		D34122492062454E0019149C /* QDBException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDBException.h; sourceTree = "<group>"; };
+		D341224A2062454E0019149C /* QDBValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDBValue.m; sourceTree = "<group>"; };
+		D341224B2062454E0019149C /* QSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSQLite.h; sourceTree = "<group>"; };
+		D341224C2062454E0019149C /* QSQLiteOpenHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSQLiteOpenHelper.h; sourceTree = "<group>"; };
+		D341224D2062454E0019149C /* QSQLiteOpenHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSQLiteOpenHelper.m; sourceTree = "<group>"; };
+		D341224E2062454E0019149C /* QDBException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDBException.m; sourceTree = "<group>"; };
+		D341224F2062454E0019149C /* QDBValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDBValue.h; sourceTree = "<group>"; };
+		D3412275206245CC0019149C /* DemoUseCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoUseCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3412280206245CC0019149C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D3412285206245CC0019149C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3412286206245CC0019149C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D341228F206245DE0019149C /* DemoUseLib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoUseLib.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D341229A206245DE0019149C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D341229F206245DE0019149C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D34122A0206245DE0019149C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D34122A7206246410019149C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D34122AE20624BA90019149C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D34122BF20624BA90019149C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D34122C920624C2B0019149C /* DataCenterClear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCenterClear.m; sourceTree = "<group>"; };
+		D34122CA20624C2B0019149C /* DataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCenter.m; sourceTree = "<group>"; };
+		D34122CB20624C2B0019149C /* DataCenterSecret.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCenterSecret.m; sourceTree = "<group>"; };
+		D34122CC20624C2B0019149C /* DataCenterClear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCenterClear.h; sourceTree = "<group>"; };
+		D34122CD20624C2B0019149C /* DataCenterSecret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCenterSecret.h; sourceTree = "<group>"; };
+		D34122CE20624C2B0019149C /* DataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCenter.h; sourceTree = "<group>"; };
+		D34122D020624C2B0019149C /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		D34122D120624C2B0019149C /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		D34122D320624C2B0019149C /* PerformanceTesterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformanceTesterViewController.h; sourceTree = "<group>"; };
+		D34122D420624C2B0019149C /* PersonListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonListViewController.m; sourceTree = "<group>"; };
+		D34122D520624C2B0019149C /* PersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonListViewController.h; sourceTree = "<group>"; };
+		D34122D620624C2B0019149C /* PerformanceTesterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerformanceTesterViewController.m; sourceTree = "<group>"; };
+		D34122D820624C2B0019149C /* PersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTableViewCell.m; sourceTree = "<group>"; };
+		D34122D920624C2B0019149C /* PersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonTableViewCell.h; sourceTree = "<group>"; };
+		D34122E920624E1C0019149C /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		D34122EA20624FBD0019149C /* QuickVFL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuickVFL.framework; sourceTree = "<group>"; };
+		D34122ED206250460019149C /* PerformanceTesterViewController.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PerformanceTesterViewController.json; sourceTree = "<group>"; };
+		D34122F0206253470019149C /* PersonListViewController.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PersonListViewController.json; sourceTree = "<group>"; };
+		D34122F3206254A10019149C /* PersonTableViewCell.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PersonTableViewCell.json; sourceTree = "<group>"; };
+		D34122FD20625B650019149C /* secretPersons.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = secretPersons.db; sourceTree = "<group>"; };
+		D3412303206265170019149C /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D3411BF8206244160019149C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D34122A8206246410019149C /* Security.framework in Frameworks */,
+				D34122A6206246380019149C /* libsqlcipher.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3412272206245CC0019149C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D34122FA206257BA0019149C /* Security.framework in Frameworks */,
+				D34122F9206257B10019149C /* libsqlcipher.a in Frameworks */,
+				D34122EB20624FBD0019149C /* QuickVFL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D341228C206245DE0019149C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3412300206264D20019149C /* QuickSQLite.framework in Frameworks */,
+				D34122EC20624FFA0019149C /* QuickVFL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D3411BF2206244160019149C = {
+			isa = PBXGroup;
+			children = (
+				D3411C07206244740019149C /* External */,
+				D3411BFE206244160019149C /* QuickSQLite */,
+				D3412276206245CC0019149C /* DemoUseCode */,
+				D3412290206245DE0019149C /* DemoUseLib */,
+				D3411BFD206244160019149C /* Products */,
+				D34122A5206246380019149C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D3411BFD206244160019149C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3411BFC206244160019149C /* QuickSQLite.framework */,
+				D3412275206245CC0019149C /* DemoUseCode.app */,
+				D341228F206245DE0019149C /* DemoUseLib.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D3411BFE206244160019149C /* QuickSQLite */ = {
+			isa = PBXGroup;
+			children = (
+				D3411C08206244810019149C /* source */,
+				D3411BFF206244160019149C /* QuickSQLite.h */,
+				D3411C00206244160019149C /* Info.plist */,
+			);
+			path = QuickSQLite;
+			sourceTree = "<group>";
+		};
+		D3411C07206244740019149C /* External */ = {
+			isa = PBXGroup;
+			children = (
+				D3412236206245190019149C /* sqlcipher.xcodeproj */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		D3411C08206244810019149C /* source */ = {
+			isa = PBXGroup;
+			children = (
+				D34122492062454E0019149C /* QDBException.h */,
+				D341224E2062454E0019149C /* QDBException.m */,
+				D341224F2062454E0019149C /* QDBValue.h */,
+				D341224A2062454E0019149C /* QDBValue.m */,
+				D341224B2062454E0019149C /* QSQLite.h */,
+				D341224C2062454E0019149C /* QSQLiteOpenHelper.h */,
+				D341224D2062454E0019149C /* QSQLiteOpenHelper.m */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
+		D3412237206245190019149C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3412240206245190019149C /* SQLCipher.framework */,
+				D3412242206245190019149C /* SQLCipher.framework */,
+				D3412244206245190019149C /* SQLCipher.framework */,
+				D3412246206245190019149C /* SQLCipher.framework */,
+				D3412248206245190019149C /* libsqlcipher.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D3412276206245CC0019149C /* DemoUseCode */ = {
+			isa = PBXGroup;
+			children = (
+				D34122FD20625B650019149C /* secretPersons.db */,
+				D34122BF20624BA90019149C /* AppDelegate.h */,
+				D34122AE20624BA90019149C /* AppDelegate.m */,
+				D34122BE20624BA90019149C /* Frameworks */,
+				D34122AF20624BA90019149C /* source */,
+				D3412280206245CC0019149C /* Assets.xcassets */,
+				D3412285206245CC0019149C /* Info.plist */,
+				D3412286206245CC0019149C /* main.m */,
+				D34122E920624E1C0019149C /* PrefixHeader.pch */,
+			);
+			path = DemoUseCode;
+			sourceTree = "<group>";
+		};
+		D3412290206245DE0019149C /* DemoUseLib */ = {
+			isa = PBXGroup;
+			children = (
+				D341229A206245DE0019149C /* Assets.xcassets */,
+				D341229F206245DE0019149C /* Info.plist */,
+				D34122A0206245DE0019149C /* main.m */,
+				D3412303206265170019149C /* PrefixHeader.pch */,
+			);
+			path = DemoUseLib;
+			sourceTree = "<group>";
+		};
+		D34122A5206246380019149C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D34122A7206246410019149C /* Security.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D34122AF20624BA90019149C /* source */ = {
+			isa = PBXGroup;
+			children = (
+				D34122D220624C2B0019149C /* controller */,
+				D34122C820624C2B0019149C /* dao */,
+				D34122CF20624C2B0019149C /* model */,
+				D34122D720624C2B0019149C /* view */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
+		D34122BE20624BA90019149C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D34122EA20624FBD0019149C /* QuickVFL.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		D34122C820624C2B0019149C /* dao */ = {
+			isa = PBXGroup;
+			children = (
+				D34122CC20624C2B0019149C /* DataCenterClear.h */,
+				D34122CD20624C2B0019149C /* DataCenterSecret.h */,
+				D34122CE20624C2B0019149C /* DataCenter.h */,
+				D34122C920624C2B0019149C /* DataCenterClear.m */,
+				D34122CA20624C2B0019149C /* DataCenter.m */,
+				D34122CB20624C2B0019149C /* DataCenterSecret.m */,
+			);
+			path = dao;
+			sourceTree = "<group>";
+		};
+		D34122CF20624C2B0019149C /* model */ = {
+			isa = PBXGroup;
+			children = (
+				D34122D020624C2B0019149C /* Person.h */,
+				D34122D120624C2B0019149C /* Person.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		D34122D220624C2B0019149C /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				D34122D320624C2B0019149C /* PerformanceTesterViewController.h */,
+				D34122ED206250460019149C /* PerformanceTesterViewController.json */,
+				D34122D620624C2B0019149C /* PerformanceTesterViewController.m */,
+				D34122D520624C2B0019149C /* PersonListViewController.h */,
+				D34122F0206253470019149C /* PersonListViewController.json */,
+				D34122D420624C2B0019149C /* PersonListViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		D34122D720624C2B0019149C /* view */ = {
+			isa = PBXGroup;
+			children = (
+				D34122D820624C2B0019149C /* PersonTableViewCell.m */,
+				D34122D920624C2B0019149C /* PersonTableViewCell.h */,
+				D34122F3206254A10019149C /* PersonTableViewCell.json */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D3411BF9206244160019149C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D34122502062454E0019149C /* QDBException.h in Headers */,
+				D34122562062454E0019149C /* QDBValue.h in Headers */,
+				D34122532062454E0019149C /* QSQLiteOpenHelper.h in Headers */,
+				D34122522062454E0019149C /* QSQLite.h in Headers */,
+				D3411C01206244160019149C /* QuickSQLite.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D3411BFB206244160019149C /* QuickSQLite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3411C04206244160019149C /* Build configuration list for PBXNativeTarget "QuickSQLite" */;
+			buildPhases = (
+				D3411BF7206244160019149C /* Sources */,
+				D3411BF8206244160019149C /* Frameworks */,
+				D3411BF9206244160019149C /* Headers */,
+				D3411BFA206244160019149C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuickSQLite;
+			productName = QuickSQLite;
+			productReference = D3411BFC206244160019149C /* QuickSQLite.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D3412274206245CC0019149C /* DemoUseCode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3412288206245CC0019149C /* Build configuration list for PBXNativeTarget "DemoUseCode" */;
+			buildPhases = (
+				D3412271206245CC0019149C /* Sources */,
+				D3412272206245CC0019149C /* Frameworks */,
+				D3412273206245CC0019149C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D34122FC206257D10019149C /* PBXTargetDependency */,
+			);
+			name = DemoUseCode;
+			productName = DemoUseCode;
+			productReference = D3412275206245CC0019149C /* DemoUseCode.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D341228E206245DE0019149C /* DemoUseLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D34122A2206245DE0019149C /* Build configuration list for PBXNativeTarget "DemoUseLib" */;
+			buildPhases = (
+				D341228B206245DE0019149C /* Sources */,
+				D341228C206245DE0019149C /* Frameworks */,
+				D341228D206245DE0019149C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3412302206264E10019149C /* PBXTargetDependency */,
+			);
+			name = DemoUseLib;
+			productName = DemoUseLib;
+			productReference = D341228F206245DE0019149C /* DemoUseLib.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D3411BF3206244160019149C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = org.quick;
+				TargetAttributes = {
+					D3411BFB206244160019149C = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					D3412274206245CC0019149C = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					D341228E206245DE0019149C = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					D34122A9206246890019149C = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = D3411BF6206244160019149C /* Build configuration list for PBXProject "QuickSQLite" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D3411BF2206244160019149C;
+			productRefGroup = D3411BFD206244160019149C /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D3412237206245190019149C /* Products */;
+					ProjectRef = D3412236206245190019149C /* sqlcipher.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				D3411BFB206244160019149C /* QuickSQLite */,
+				D3412274206245CC0019149C /* DemoUseCode */,
+				D341228E206245DE0019149C /* DemoUseLib */,
+				D34122A9206246890019149C /* BuildUniversal */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D3412240206245190019149C /* SQLCipher.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLCipher.framework;
+			remoteRef = D341223F206245190019149C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3412242206245190019149C /* SQLCipher.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLCipher.framework;
+			remoteRef = D3412241206245190019149C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3412244206245190019149C /* SQLCipher.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLCipher.framework;
+			remoteRef = D3412243206245190019149C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3412246206245190019149C /* SQLCipher.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLCipher.framework;
+			remoteRef = D3412245206245190019149C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3412248206245190019149C /* libsqlcipher.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libsqlcipher.a;
+			remoteRef = D3412247206245190019149C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D3411BFA206244160019149C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3412273206245CC0019149C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D34122FE20625B650019149C /* secretPersons.db in Resources */,
+				D34122EE206250460019149C /* PerformanceTesterViewController.json in Resources */,
+				D34122F1206253470019149C /* PersonListViewController.json in Resources */,
+				D34122F4206254A10019149C /* PersonTableViewCell.json in Resources */,
+				D3412281206245CC0019149C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D341228D206245DE0019149C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D34122FF20625B650019149C /* secretPersons.db in Resources */,
+				D34122EF206250460019149C /* PerformanceTesterViewController.json in Resources */,
+				D34122F2206253470019149C /* PersonListViewController.json in Resources */,
+				D34122F5206254A10019149C /* PersonTableViewCell.json in Resources */,
+				D341229B206245DE0019149C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D34122AD206246C10019149C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FRAMEWORK_NAME=\"QuickSQLite\"\nINSTALL_DIR=${SRCROOT}/Products/${FRAMEWORK_NAME}.framework\n\nWORKING_DIR=build\nDEVICE_DIR=${WORKING_DIR}/Release-iphoneos/${FRAMEWORK_NAME}.framework\nSIMULATOR_DIR=${WORKING_DIR}/Debug-iphonesimulator/${FRAMEWORK_NAME}.framework\n\nxcodebuild -configuration \"Release\" -target \"${FRAMEWORK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Debug\" -target \"${FRAMEWORK_NAME}\" -sdk iphonesimulator clean build\n\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ];then\nrm -rf \"${INSTALL_DIR}\"\nfi\n\nmkdir -p \"${INSTALL_DIR}\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n\n# Uses the Lipo Tool to merge both binaryfiles (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FRAMEWORK_NAME}\" \"${SIMULATOR_DIR}/${FRAMEWORK_NAME}\" -output \"${INSTALL_DIR}/${FRAMEWORK_NAME}\"\n\n# Display framework information.\necho \"Information for the framework:\"\nlipo -info \"${INSTALL_DIR}/${FRAMEWORK_NAME}\"\n\nrm -r \"${WORKING_DIR}\"\nopen \"${INSTALL_DIR}/..\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D3411BF7206244160019149C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D34122512062454E0019149C /* QDBValue.m in Sources */,
+				D34122552062454E0019149C /* QDBException.m in Sources */,
+				D34122542062454E0019149C /* QSQLiteOpenHelper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3412271206245CC0019149C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D34122DD20624C2B0019149C /* Person.m in Sources */,
+				D34122F6206257400019149C /* QDBException.m in Sources */,
+				D34122C020624BA90019149C /* AppDelegate.m in Sources */,
+				D34122F8206257460019149C /* QSQLiteOpenHelper.m in Sources */,
+				D34122E020624C2B0019149C /* PersonTableViewCell.m in Sources */,
+				D34122F7206257430019149C /* QDBValue.m in Sources */,
+				D3412287206245CC0019149C /* main.m in Sources */,
+				D34122DE20624C2B0019149C /* PersonListViewController.m in Sources */,
+				D34122DF20624C2B0019149C /* PerformanceTesterViewController.m in Sources */,
+				D34122DC20624C2B0019149C /* DataCenterSecret.m in Sources */,
+				D34122DB20624C2B0019149C /* DataCenter.m in Sources */,
+				D34122DA20624C2B0019149C /* DataCenterClear.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D341228B206245DE0019149C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D34122E820624CC40019149C /* AppDelegate.m in Sources */,
+				D34122A1206245DE0019149C /* main.m in Sources */,
+				D34122E320624CAF0019149C /* DataCenterClear.m in Sources */,
+				D34122E720624CB90019149C /* PersonTableViewCell.m in Sources */,
+				D34122E420624CAF0019149C /* DataCenter.m in Sources */,
+				D34122E220624CA90019149C /* PerformanceTesterViewController.m in Sources */,
+				D34122E620624CB30019149C /* Person.m in Sources */,
+				D34122E520624CAF0019149C /* DataCenterSecret.m in Sources */,
+				D34122E120624CA90019149C /* PersonListViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D34122FC206257D10019149C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = sqlcipher;
+			targetProxy = D34122FB206257D10019149C /* PBXContainerItemProxy */;
+		};
+		D3412302206264E10019149C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D3411BFB206244160019149C /* QuickSQLite */;
+			targetProxy = D3412301206264E10019149C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		D3411C02206244160019149C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/External/sqlcipher";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D3411C03206244160019149C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/External/sqlcipher";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D3411C05206244160019149C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External/sqlcipher/build/Release-iphoneos",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = QuickSQLite/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External/sqlcipher/build/sqlcipher.build/Release-iphoneos/sqlcipher.build/Objects-normal/armv7",
+					"$(PROJECT_DIR)/External/sqlcipher/build/sqlcipher.build/Release-iphoneos/sqlcipher.build/Objects-normal/armv7s",
+					"$(PROJECT_DIR)/External/sqlcipher/build/sqlcipher.build/Release-iphoneos/sqlcipher.build/Objects-normal/arm64",
+					"$(PROJECT_DIR)/External/sqlcipher/build/Debug-iphonesimulator",
+					"$(PROJECT_DIR)/External/sqlcipher/build/Release-iphoneos",
+				);
+				MACH_O_TYPE = staticlib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=2",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.quick.QuickSQLite;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 x86_64";
+			};
+			name = Debug;
+		};
+		D3411C06206244160019149C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External/sqlcipher/build/Release-iphoneos",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = QuickSQLite/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External/sqlcipher/build/sqlcipher.build/Release-iphoneos/sqlcipher.build/Objects-normal/armv7",
+					"$(PROJECT_DIR)/External/sqlcipher/build/sqlcipher.build/Release-iphoneos/sqlcipher.build/Objects-normal/armv7s",
+					"$(PROJECT_DIR)/External/sqlcipher/build/sqlcipher.build/Release-iphoneos/sqlcipher.build/Objects-normal/arm64",
+					"$(PROJECT_DIR)/External/sqlcipher/build/Debug-iphonesimulator",
+					"$(PROJECT_DIR)/External/sqlcipher/build/Release-iphoneos",
+				);
+				MACH_O_TYPE = staticlib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=2",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.quick.QuickSQLite;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 x86_64";
+			};
+			name = Release;
+		};
+		D3412289206245CC0019149C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DemoUseCode/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/DemoUseCode/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = DemoUseCode/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-DSQLITE_HAS_CODEC";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = org.quick.DemoUseCode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 x86_64";
+			};
+			name = Debug;
+		};
+		D341228A206245CC0019149C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DemoUseCode/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/DemoUseCode/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = DemoUseCode/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-DSQLITE_HAS_CODEC";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = org.quick.DemoUseCode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 x86_64";
+			};
+			name = Release;
+		};
+		D34122A3206245DE0019149C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DemoUseCode/Frameworks",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/DemoUseLib/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = DemoUseLib/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = org.quick.DemoUseLib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 x86_64";
+			};
+			name = Debug;
+		};
+		D34122A4206245DE0019149C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DemoUseCode/Frameworks",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/DemoUseLib/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = DemoUseLib/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = org.quick.DemoUseLib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 x86_64";
+			};
+			name = Release;
+		};
+		D34122AB206246890019149C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D34122AC206246890019149C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D3411BF6206244160019149C /* Build configuration list for PBXProject "QuickSQLite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3411C02206244160019149C /* Debug */,
+				D3411C03206244160019149C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3411C04206244160019149C /* Build configuration list for PBXNativeTarget "QuickSQLite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3411C05206244160019149C /* Debug */,
+				D3411C06206244160019149C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3412288206245CC0019149C /* Build configuration list for PBXNativeTarget "DemoUseCode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3412289206245CC0019149C /* Debug */,
+				D341228A206245CC0019149C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D34122A2206245DE0019149C /* Build configuration list for PBXNativeTarget "DemoUseLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D34122A3206245DE0019149C /* Debug */,
+				D34122A4206245DE0019149C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D34122AA206246890019149C /* Build configuration list for PBXAggregateTarget "BuildUniversal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D34122AB206246890019149C /* Debug */,
+				D34122AC206246890019149C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D3411BF3206244160019149C /* Project object */;
+}

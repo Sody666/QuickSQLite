@@ -1,0 +1,26 @@
+{
+    "labelName":{
+        ":className":"UILabel",
+        ":stayWhenCompressed":"H@100",
+        ":stayWhenStretched":"H@100",
+    },
+    "labelAge":{
+        ":className":"UILabel",
+    },
+    "labelHeight":{
+        ":className":"UILabel",
+    },
+    "imageViewAvatar":{
+        ":className":"UIImageView",
+        ":stayWhenCompressed":"H@200",
+        ":stayWhenStretched":"H@200",
+    },
+    ":layout":"
+        /*name, age, height left right align*/\
+        V:|-[_labelName][_labelAge][_labelHeight]-(>=8)-| {left, right};\
+        H:|-[_labelName]-[_imageViewAvatar]-|;\
+        /*if name, age, height part is higher than avatar, center it*/\
+        H:[_imageViewAvatar]{centerY};\
+        V:|-(>=8)-[_imageViewAvatar]-(>=8)-|;
+    "
+}

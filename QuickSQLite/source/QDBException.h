@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QException : NSException
+@interface QDBException : NSException
 +(id)exceptionForReason:(NSString*)reason userInfo:(NSDictionary*)userInfo;
 @end

@@ -14,9 +14,9 @@
 		98A2C8911E13B868009A3522 /* libsqlcipher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C8771E12A5BC009A3522 /* libsqlcipher.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		98A2C8921E13B87C009A3522 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C87B1E12A717009A3522 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		98A2C8931E13B883009A3522 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C87B1E12A717009A3522 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		98A2C8B71E14EC46009A3522 /* QException.h in Headers */ = {isa = PBXBuildFile; fileRef = 98A2C8B51E14EC46009A3522 /* QException.h */; };
-		98A2C8B81E14EC46009A3522 /* QException.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A2C8B61E14EC46009A3522 /* QException.m */; };
-		98CFEA481E1E8D9000B2FA95 /* QException.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A2C8B61E14EC46009A3522 /* QException.m */; };
+		98A2C8B71E14EC46009A3522 /* QDBException.h in Headers */ = {isa = PBXBuildFile; fileRef = 98A2C8B51E14EC46009A3522 /* QDBException.h */; };
+		98A2C8B81E14EC46009A3522 /* QDBException.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A2C8B61E14EC46009A3522 /* QDBException.m */; };
+		98CFEA481E1E8D9000B2FA95 /* QDBException.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A2C8B61E14EC46009A3522 /* QDBException.m */; };
 		98FCA7271E028ADF0007A27F /* QDBValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA6CA1E0277740007A27F /* QDBValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98FCA7281E028ADF0007A27F /* QDBValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FCA6CB1E0277740007A27F /* QDBValue.m */; };
 		98FCA7291E028ADF0007A27F /* QSQLiteOpenHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 98FCA6CC1E0277740007A27F /* QSQLiteOpenHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -94,8 +94,8 @@
 		98A2C8651E12A5BC009A3522 /* sqlcipher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sqlcipher.xcodeproj; path = sqlcipher/sqlcipher.xcodeproj; sourceTree = "<group>"; };
 		98A2C87B1E12A717009A3522 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		98A2C87D1E12BF48009A3522 /* testDBEncrypted.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = testDBEncrypted.sql; sourceTree = "<group>"; };
-		98A2C8B51E14EC46009A3522 /* QException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QException.h; sourceTree = "<group>"; };
-		98A2C8B61E14EC46009A3522 /* QException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QException.m; sourceTree = "<group>"; };
+		98A2C8B51E14EC46009A3522 /* QDBException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDBException.h; sourceTree = "<group>"; };
+		98A2C8B61E14EC46009A3522 /* QDBException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDBException.m; sourceTree = "<group>"; };
 		98FCA6CA1E0277740007A27F /* QDBValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDBValue.h; sourceTree = "<group>"; };
 		98FCA6CB1E0277740007A27F /* QDBValue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDBValue.m; sourceTree = "<group>"; };
 		98FCA6CC1E0277740007A27F /* QSQLiteOpenHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QSQLiteOpenHelper.h; sourceTree = "<group>"; };
@@ -191,8 +191,8 @@
 		98FCA6C91E0277740007A27F /* source */ = {
 			isa = PBXGroup;
 			children = (
-				98A2C8B51E14EC46009A3522 /* QException.h */,
-				98A2C8B61E14EC46009A3522 /* QException.m */,
+				98A2C8B51E14EC46009A3522 /* QDBException.h */,
+				98A2C8B61E14EC46009A3522 /* QDBException.m */,
 				98FCA6CA1E0277740007A27F /* QDBValue.h */,
 				98FCA6CB1E0277740007A27F /* QDBValue.m */,
 				98FCA6CC1E0277740007A27F /* QSQLiteOpenHelper.h */,
@@ -285,7 +285,7 @@
 			files = (
 				98FCA7291E028ADF0007A27F /* QSQLiteOpenHelper.h in Headers */,
 				98FCA7271E028ADF0007A27F /* QDBValue.h in Headers */,
-				98A2C8B71E14EC46009A3522 /* QException.h in Headers */,
+				98A2C8B71E14EC46009A3522 /* QDBException.h in Headers */,
 				98FCA7621E03B5B30007A27F /* QuickSQLite.h in Headers */,
 				98FCA7311E02A25C0007A27F /* QSQLite.h in Headers */,
 			);
@@ -493,7 +493,7 @@
 			files = (
 				98FCA7281E028ADF0007A27F /* QDBValue.m in Sources */,
 				98FCA72A1E028ADF0007A27F /* QSQLiteOpenHelper.m in Sources */,
-				98A2C8B81E14EC46009A3522 /* QException.m in Sources */,
+				98A2C8B81E14EC46009A3522 /* QDBException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,7 +501,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98CFEA481E1E8D9000B2FA95 /* QException.m in Sources */,
+				98CFEA481E1E8D9000B2FA95 /* QDBException.m in Sources */,
 				98FCA7961E03CFAC0007A27F /* QDBValue.m in Sources */,
 				98FCA7811E03CECC0007A27F /* ViewController.m in Sources */,
 				98FCA77E1E03CECC0007A27F /* AppDelegate.m in Sources */,

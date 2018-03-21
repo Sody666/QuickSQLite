@@ -7,7 +7,7 @@
 
 #import "QSQLiteOpenHelper.h"
 #import "QDBValue.h"
-#import "QException.h"
+#import "QDBException.h"
 #import "QSQLite.h"
 
 #define kQDBPath ([NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0])
@@ -189,7 +189,7 @@
     }
     
     if(error){
-        @throw [QException exceptionForReason:error.localizedFailureReason userInfo:nil];
+        @throw [QDBException exceptionForReason:error.localizedFailureReason userInfo:nil];
     }
     
     return folder;
@@ -204,7 +204,7 @@
         fullReason = QFormatString(@"%@ claimed to be clear", reason);\
     }\
 \
-    @throw [QException exceptionForReason:fullReason userInfo:nil];\
+    @throw [QDBException exceptionForReason:fullReason userInfo:nil];\
 }while(0)
 - (void)_validDatabaseWithKey:(NSString*)key
 {
@@ -238,7 +238,7 @@
         
         if(bundleDBPath.length > 0){
             if(![fileManager fileExistsAtPath:bundleDBPath]){
-                @throw [QException exceptionForReason:@"Database file is invalid." userInfo:@{@"path":bundleDBPath}];
+                @throw [QDBException exceptionForReason:@"Database file is invalid." userInfo:@{@"path":bundleDBPath}];
             }
             
             [fileManager copyItemAtPath:bundleDBPath toPath:tempFullPath error:nil];
@@ -267,7 +267,7 @@
                     CLOSE_DB(sandboxDB);
                     CLOSE_DB(bundleDB);
                     [fileManager removeItemAtPath:tempFullPath error:nil];
-                    @throw [QException exceptionForReason:@"Migration failed" userInfo:nil];
+                    @throw [QDBException exceptionForReason:@"Migration failed" userInfo:nil];
                 }
             }else{
                 if(bundleVersion > sandboxVersion) {
@@ -331,7 +331,7 @@
     NSString* currentDatabasePath = [NSString stringWithFormat:@"%@/%@",[self _databaseDiretory], self.databaseName];
     _currentDatabase = [self _openDatabaseInPath:currentDatabasePath withKey:key];
     if (_currentDatabase == NULL) {
-        @throw [QException exceptionForReason:@"Failed to open database fiel" userInfo:@{@"path":currentDatabasePath}];
+        @throw [QDBException exceptionForReason:@"Failed to open database fiel" userInfo:@{@"path":currentDatabasePath}];
     }
 }
 

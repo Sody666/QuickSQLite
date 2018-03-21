@@ -6,9 +6,9 @@
 //
 //
 
-#import "QException.h"
+#import "QDBException.h"
 
-@implementation QException
+@implementation QDBException
 +(id)exceptionForReason:(NSString*)reason userInfo:(NSDictionary*)userInfo{
     return [self exceptionWithName:@"QuickSQLite Framework Exception" reason:reason userInfo:userInfo];
 }

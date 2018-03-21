@@ -91,7 +91,9 @@
     return [self initWithName:name version:0 openDelegate:delegate];
 }
 
-- (id)initWithName:(NSString *)name version:(int)version openDelegate:(id)delegate
+- (id)initWithName:(const NSString *)name
+           version:(const int)version
+      openDelegate:(id)delegate
 {
     return [self initWithName:name
                           key:nil
@@ -100,8 +102,8 @@
                  openDelegate:delegate];
 }
 
-- (id)initWithName:(NSString *)name
-               key:(NSString*)key
+- (id)initWithName:(const NSString *)name
+               key:(const NSString*)key
       openDelegate:(id)delegate{
     return [self initWithName:name
                           key:key
@@ -110,8 +112,8 @@
                  openDelegate:delegate];
 }
 
-- (id)initWithName:(NSString *)name
-               key:(NSString*)key
+- (id)initWithName:(const NSString *)name
+               key:(const NSString*)key
            version:(int)version
           pageSize:(QDBPageSize)pageSize
       openDelegate:(id)delegate{

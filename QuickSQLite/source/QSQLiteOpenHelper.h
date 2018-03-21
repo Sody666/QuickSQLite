@@ -87,7 +87,7 @@ typedef NS_ENUM(NSUInteger, QDBPageSize) {
  @param delegate delegate for helper
  @return helper initialized
  */
-- (id)initWithName:(NSString *)name
+- (id)initWithName:(const NSString *)name
       openDelegate:(id)delegate;
 
 /**
@@ -99,8 +99,8 @@ typedef NS_ENUM(NSUInteger, QDBPageSize) {
  @param delegate delegate for helper
  @return helper initialized
  */
-- (id)initWithName:(NSString *)name
-           version:(int)version
+- (id)initWithName:(const NSString *)name
+           version:(const int)version
       openDelegate:(id)delegate;
 
 /**
@@ -112,8 +112,8 @@ typedef NS_ENUM(NSUInteger, QDBPageSize) {
  @param delegate delegate for helper
  @return helper initialized
  */
-- (id)initWithName:(NSString *)name
-               key:(NSString*)key
+- (id)initWithName:(const NSString *)name
+               key:(const NSString*)key
       openDelegate:(id)delegate;
 
 /**
@@ -129,9 +129,9 @@ typedef NS_ENUM(NSUInteger, QDBPageSize) {
  @param delegate delegate for helper
  @return helper initialized
  */
-- (id)initWithName:(NSString *)name
-               key:(NSString*)key
-           version:(int)version
+- (id)initWithName:(const NSString *)name
+               key:(const NSString*)key
+           version:(const int)version
           pageSize:(QDBPageSize)pageSize
       openDelegate:(id)delegate;
 #pragma mark - traditional sql interface

@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		D3411BBE20621C0B0019149C /* BuildFramework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = D3411BBF20621C0B0019149C /* Build configuration list for PBXAggregateTarget "BuildFramework" */;
+			buildPhases = (
+				D3411BC220621C1A0019149C /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = BuildFramework;
+			productName = BuildFramework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		98A2C87A1E12A700009A3522 /* libsqlcipher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C8771E12A5BC009A3522 /* libsqlcipher.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		98A2C87C1E12A717009A3522 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A2C87B1E12A717009A3522 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -294,9 +308,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		98FCA70F1E0279DB0007A27F /* framework */ = {
+		98FCA70F1E0279DB0007A27F /* QuickSQLite */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 98FCA7151E0279DB0007A27F /* Build configuration list for PBXNativeTarget "framework" */;
+			buildConfigurationList = 98FCA7151E0279DB0007A27F /* Build configuration list for PBXNativeTarget "QuickSQLite" */;
 			buildPhases = (
 				98FCA70B1E0279DB0007A27F /* Sources */,
 				98FCA70C1E0279DB0007A27F /* Frameworks */,
@@ -309,7 +323,7 @@
 			dependencies = (
 				98A2C8791E12A6DE009A3522 /* PBXTargetDependency */,
 			);
-			name = framework;
+			name = QuickSQLite;
 			productName = framework;
 			productReference = 98FCA7101E0279DB0007A27F /* QuickSQLite.framework */;
 			productType = "com.apple.product-type.framework";
@@ -372,6 +386,10 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 98FCA7761E03CECC0007A27F;
 					};
+					D3411BBE20621C0B0019149C = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 98FCA6C61E0277260007A27F /* Build configuration list for PBXProject "QuickSQLite" */;
@@ -393,9 +411,10 @@
 			);
 			projectRoot = "";
 			targets = (
-				98FCA70F1E0279DB0007A27F /* framework */,
+				98FCA70F1E0279DB0007A27F /* QuickSQLite */,
 				98FCA7761E03CECC0007A27F /* demo */,
 				98FCA79C1E03D7E90007A27F /* demoTests */,
+				D3411BBE20621C0B0019149C /* BuildFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -482,7 +501,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "UNIVERSAL_OUTPUT_PATH=${BUILD_DIR}/${CONFIGURATION}-universal\nUNIVERSAL_FRAMEWORK=${UNIVERSAL_OUTPUT_PATH}/${PRODUCT_NAME}.framework\nIPHONE_FRAMEWORK=${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PRODUCT_NAME}.framework\nSIMULATOR_FRAMEWORK=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PRODUCT_NAME}.framework\n\nrm -rf ${UNIVERSAL_FRAMEWORK}\nmkdir -p ${UNIVERSAL_OUTPUT_PATH}\n\nif [ -d ${IPHONE_FRAMEWORK} ] && [ -d ${SIMULATOR_FRAMEWORK} ]; then\ncp -r ${IPHONE_FRAMEWORK} ${UNIVERSAL_FRAMEWORK}\nlipo -create ${IPHONE_FRAMEWORK}/${PRODUCT_NAME} ${SIMULATOR_FRAMEWORK}/${PRODUCT_NAME} -output ${UNIVERSAL_FRAMEWORK}/${PRODUCT_NAME}\necho \"Product information: \"\nlipo -info ${UNIVERSAL_FRAMEWORK}/${PRODUCT_NAME}\nelse\necho \"error: Both simulator and ios products are required.\"\necho \"Universal product is not produced.\"\nfi";
+			shellScript = "";
+		};
+		D3411BC220621C1A0019149C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FRAMEWORK_NAME=\"QuickSQLite\"\nINSTALL_DIR=${SRCROOT}/Products/${FRAMEWORK_NAME}.framework\n\nWORKING_DIR=build\nDEVICE_DIR=${WORKING_DIR}/Release-iphoneos/${FRAMEWORK_NAME}.framework\nSIMULATOR_DIR=${WORKING_DIR}/Debug-iphonesimulator/${FRAMEWORK_NAME}.framework\n\nxcodebuild -configuration \"Release\" -target \"${FRAMEWORK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Debug\" -target \"${FRAMEWORK_NAME}\" -sdk iphonesimulator clean build\n\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ];then\nrm -rf \"${INSTALL_DIR}\"\nfi\n\nmkdir -p \"${INSTALL_DIR}\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n\n# Uses the Lipo Tool to merge both binaryfiles (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FRAMEWORK_NAME}\" \"${SIMULATOR_DIR}/${FRAMEWORK_NAME}\" -output \"${INSTALL_DIR}/${FRAMEWORK_NAME}\"\n\n# Display framework information.\necho \"Information for the framework:\"\nlipo -info \"${INSTALL_DIR}/${FRAMEWORK_NAME}\"\n\nrm -r \"${WORKING_DIR}\"\nopen \"${INSTALL_DIR}/..\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -954,6 +986,22 @@
 			};
 			name = Release;
 		};
+		D3411BC020621C0B0019149C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D3411BC120621C0B0019149C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -966,7 +1014,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		98FCA7151E0279DB0007A27F /* Build configuration list for PBXNativeTarget "framework" */ = {
+		98FCA7151E0279DB0007A27F /* Build configuration list for PBXNativeTarget "QuickSQLite" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				98FCA7161E0279DB0007A27F /* Debug */,
@@ -989,6 +1037,15 @@
 			buildConfigurations = (
 				98FCA7A51E03D7EA0007A27F /* Debug */,
 				98FCA7A61E03D7EA0007A27F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3411BBF20621C0B0019149C /* Build configuration list for PBXAggregateTarget "BuildFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3411BC020621C0B0019149C /* Debug */,
+				D3411BC120621C0B0019149C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

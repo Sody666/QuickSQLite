@@ -23,11 +23,8 @@
 /* Begin PBXBuildFile section */
 		4C0041A61BFC3A5000ED2AD5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0041A51BFC3A5000ED2AD5 /* Security.framework */; };
 		4C0041AB1BFC3A7E00ED2AD5 /* SQLCipher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0041A91BFC3A7E00ED2AD5 /* SQLCipher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C0041BC1BFC3C7500ED2AD5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0041BB1BFC3C7500ED2AD5 /* Security.framework */; };
 		4C0041BD1BFC3C8300ED2AD5 /* SQLCipher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0041A91BFC3A7E00ED2AD5 /* SQLCipher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C0041CE1BFC3D3900ED2AD5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0041CD1BFC3D3900ED2AD5 /* Security.framework */; };
 		4C0041CF1BFC3D4000ED2AD5 /* SQLCipher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0041A91BFC3A7E00ED2AD5 /* SQLCipher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C0041E11BFC3F0800ED2AD5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0041E01BFC3F0800ED2AD5 /* Security.framework */; };
 		4C0041E21BFC3F5A00ED2AD5 /* SQLCipher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0041A91BFC3A7E00ED2AD5 /* SQLCipher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C0041FA1BFC46A600ED2AD5 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0041F91BFC46A600ED2AD5 /* sqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C0041FB1BFC46A600ED2AD5 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0041F91BFC46A600ED2AD5 /* sqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -84,12 +81,9 @@
 		4C0041A81BFC3A7E00ED2AD5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = macosx/Info.plist; sourceTree = "<group>"; };
 		4C0041A91BFC3A7E00ED2AD5 /* SQLCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQLCipher.h; path = macosx/SQLCipher.h; sourceTree = "<group>"; };
 		4C0041B11BFC3B2200ED2AD5 /* SQLCipher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLCipher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C0041BB1BFC3C7500ED2AD5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		4C0041C31BFC3CC000ED2AD5 /* SQLCipher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLCipher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C0041CD1BFC3D3900ED2AD5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		4C0041D01BFC3D9A00ED2AD5 /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-tvOS.plist"; path = "macosx/Info-tvOS.plist"; sourceTree = "<group>"; };
 		4C0041D61BFC3E2500ED2AD5 /* SQLCipher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLCipher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C0041E01BFC3F0800ED2AD5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		4C0041F91BFC46A600ED2AD5 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		9069D0A20FCE1A4D0042E34C /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
 		D2AAC046055464E500DB518D /* libsqlcipher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsqlcipher.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,7 +101,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C0041BC1BFC3C7500ED2AD5 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +108,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C0041CE1BFC3D3900ED2AD5 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,7 +115,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C0041E11BFC3F0800ED2AD5 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,9 +174,6 @@
 		4C0041A71BFC3A5400ED2AD5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4C0041E01BFC3F0800ED2AD5 /* Security.framework */,
-				4C0041CD1BFC3D3900ED2AD5 /* Security.framework */,
-				4C0041BB1BFC3C7500ED2AD5 /* Security.framework */,
 				4C0041A51BFC3A5000ED2AD5 /* Security.framework */,
 			);
 			name = Frameworks;

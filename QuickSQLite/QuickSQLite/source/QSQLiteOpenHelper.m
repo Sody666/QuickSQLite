@@ -244,6 +244,11 @@
                 @throw [QDBException exceptionForReason:@"Database file is invalid." userInfo:@{@"path":bundleDBPath}];
             }
             
+            // remove any old temp database file
+            if([fileManager fileExistsAtPath:tempFullPath]){
+                [fileManager removeItemAtPath:tempFullPath error:nil];
+            }
+            
             NSError* error;
             [fileManager copyItemAtPath:bundleDBPath toPath:tempFullPath error:&error];
             if(error){
@@ -261,6 +266,7 @@
         }
     }
     
+    // when sandbox db and bundle db are valid, upgrade is needed!
     // validating database
     if(sandboxDB != NULL && bundleDB != NULL) {
         // comparing version

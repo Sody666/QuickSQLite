@@ -142,11 +142,14 @@
     BOOL isValid = NO;
     if(sqlite3_prepare_v2(db, "PRAGMA user_version;", -1, &stmt, NULL) == SQLITE_OK) {
         int validResult = sqlite3_step(stmt);
+//        char* message = sqlite3_errmsg(db);
         if(validResult== SQLITE_ROW) {
             const unsigned char *ver = sqlite3_column_text(stmt, 0);
             if(ver != NULL) {
                 isValid = YES;
             }
+        } else {
+            NSLog(@"db error: %s", sqlite3_errmsg(db));
         }
         sqlite3_finalize(stmt);
     }
@@ -165,13 +168,12 @@
         return NULL;
     }
     
-    if(key.length > 0){
+    if(key.length > 0 && existed){
         const char* utf8Key = [key UTF8String];
-        unsigned long keyLength = strlen(utf8Key);
-        if(existed){
-            sqlite3_key(result, utf8Key, (int)keyLength);
-            [self runPragma:[NSString stringWithFormat:@"cipher_page_size = %lu", (unsigned long)self.pageSize] forDB:result];
-        }
+        int keyLength = (int)strlen(utf8Key);
+        
+        sqlite3_key(result, utf8Key, keyLength);
+        [self runPragma:[NSString stringWithFormat:@"cipher_page_size = %d", (int)self.pageSize] forDB:result];
     }
     
     if(![self _isValidDB:result]){
@@ -209,134 +211,86 @@
 \
     @throw [QDBException exceptionForReason:fullReason userInfo:nil];\
 }while(0)
-- (void)_validDatabaseWithKey:(NSString*)key
-{
-    NSString	*dbPath = [self _databaseDiretory];
-    sqlite3		*sandboxDB = NULL;
-    sqlite3     *bundleDB = NULL;
-    NSString    *fullPath = [NSString stringWithFormat:@"%@/%@", dbPath, self.databaseName];
-    NSString    * tempFullPath = [NSString stringWithFormat:@"%@tmp", fullPath];
+
+- (void)_validDatabaseWithKey:(NSString*)key {
+    NSString    *dbPath = [self _databaseDiretory];
+    sqlite3     *sandboxDB = NULL;
+    NSString    *sandboxDBPath = [NSString stringWithFormat:@"%@/%@", dbPath, self.databaseName];
+    NSString    *sandboxDBPathTemp = [NSString stringWithFormat:@"%@tmp", sandboxDBPath];
     NSFileManager* fileManager = [NSFileManager defaultManager];
     
-    
-    // try to open sandbox database
-    if ([fileManager fileExistsAtPath:fullPath]) {
-        sandboxDB = [self _openDatabaseInPath:fullPath withKey:key];
+    // there exists a database
+    if([fileManager fileExistsAtPath:sandboxDBPath]){
+        sandboxDB = [self _openDatabaseInPath:sandboxDBPath withKey:key];
         if (sandboxDB == NULL) {
             THROW_EXCEPTION(@"Failed to open sandbox database file", key);
         }
         
-        if(self.databaseVersion <= [self versionForDatabase:sandboxDB]){
-            // everything is OK.
-            // No need to do any creating or upgrading job
-            CLOSE_DB(sandboxDB);
-            return;
+        int oldVersion = [self versionForDatabase:sandboxDB];
+        // upgrade requires
+        if(self.databaseVersion > oldVersion){
+            if([self.openDelegate respondsToSelector:@selector(SQLiteOpenHelper:upgradingDB:fromVersion:toVersion:)]) {
+                [self.openDelegate SQLiteOpenHelper:self upgradingDB:sandboxDB fromVersion:oldVersion toVersion:self.databaseVersion];
+            }
+            
+            [self updateDatabase:sandboxDB toVersion:self.databaseVersion];
         }
-    }
-    
-    // try to open bundle database
-    if([self.openDelegate respondsToSelector:@selector(pathToCopyBundleDBFileForSQLiteOpenHelper:withName:)]){
-        NSString* bundleDBPath = [self.openDelegate pathToCopyBundleDBFileForSQLiteOpenHelper:self
-                                                                                     withName:self.databaseName];
         
-        if(bundleDBPath.length > 0){
-            if(![fileManager fileExistsAtPath:bundleDBPath]){
-                @throw [QDBException exceptionForReason:@"Database file is invalid." userInfo:@{@"path":bundleDBPath}];
-            }
-            
-            // remove any old temp database file
-            if([fileManager fileExistsAtPath:tempFullPath]){
-                [fileManager removeItemAtPath:tempFullPath error:nil];
-            }
-            
-            NSError* error;
-            [fileManager copyItemAtPath:bundleDBPath toPath:tempFullPath error:&error];
-            if(error){
-                NSString* reason = [NSString stringWithFormat:@"Failed to copy database file: %@", error];
-                
-                [fileManager removeItemAtPath:tempFullPath error:nil];
-                
-                @throw [QDBException exceptionForReason:reason userInfo:nil];
-            }
-            
-            bundleDB = [self _openDatabaseInPath:tempFullPath withKey:key];
-            if (bundleDB == NULL) {
-                THROW_EXCEPTION(@"Failed to open bundle database file", key);
-            }
-        }
-    }
-    
-    // when sandbox db and bundle db are valid, upgrade is needed!
-    // validating database
-    if(sandboxDB != NULL && bundleDB != NULL) {
-        // comparing version
-        int bundleVersion = [self versionForDatabase:bundleDB];
-        int sandboxVersion = [self versionForDatabase:sandboxDB];
-        
-        if(bundleVersion > sandboxVersion){
-            if([self.openDelegate respondsToSelector:@selector(SQLiteOpenHelper:copyingBundleDB:withVersion:fromOldDB:withVersion:)]){
-                if([self.openDelegate SQLiteOpenHelper:self copyingBundleDB:bundleDB withVersion:bundleVersion fromOldDB:sandboxDB withVersion:sandboxVersion]){
-                    CLOSE_DB(sandboxDB);
-                    CLOSE_DB(bundleDB);
-                    [fileManager removeItemAtPath:fullPath error:nil];
-                    [fileManager moveItemAtPath:tempFullPath toPath:fullPath error:nil];
-                }else{
-                    CLOSE_DB(sandboxDB);
-                    CLOSE_DB(bundleDB);
-                    [fileManager removeItemAtPath:tempFullPath error:nil];
-                    @throw [QDBException exceptionForReason:@"Migration failed" userInfo:nil];
-                }
-            }else{
-                if(bundleVersion > sandboxVersion) {
-                    CLOSE_DB(sandboxDB);
-                    CLOSE_DB(bundleDB);
-                    [fileManager moveItemAtPath:tempFullPath toPath:fullPath error:nil];
-                }
-            }
-        }
-    } else if(sandboxDB == NULL && bundleDB != NULL) {
         CLOSE_DB(sandboxDB);
-        CLOSE_DB(bundleDB);
-        [fileManager moveItemAtPath:tempFullPath toPath:fullPath error:nil];
-    } else if(sandboxDB == NULL && bundleDB == NULL) {
-        sandboxDB = [self _openDatabaseInPath:fullPath withKey:key];
+        return;
+    }
+    
+    //
+    if([self.openDelegate respondsToSelector:@selector(pathToCopyBundleDBFileForSQLiteOpenHelper:withName:)]){
+        // copy bundle db
+        NSString* bundleDBPath = [self.openDelegate
+                                  pathToCopyBundleDBFileForSQLiteOpenHelper:self
+                                  withName:self.databaseName];
+        
+        if(bundleDBPath.length == 0 || ![fileManager fileExistsAtPath:bundleDBPath]){
+            @throw [QDBException exceptionForReason:@"Database file is invalid." userInfo:@{@"path":bundleDBPath}];
+        }
+        
+        if([fileManager fileExistsAtPath:sandboxDBPathTemp]){
+            [fileManager removeItemAtPath:sandboxDBPathTemp error:nil];
+        }
+        
+        NSError* error;
+        [fileManager copyItemAtPath:bundleDBPath toPath:sandboxDBPathTemp error:&error];
+        if(error){
+            NSString* reason = [NSString stringWithFormat:@"Failed to copy database file: %@", error];
+            [fileManager removeItemAtPath:sandboxDBPathTemp error:nil];
+            @throw [QDBException exceptionForReason:reason userInfo:nil];
+        }
+        
+        // validate the db
+        sandboxDB = [self _openDatabaseInPath:sandboxDBPathTemp withKey:key];
+        if (sandboxDB == NULL) {
+            THROW_EXCEPTION(@"Failed to open bundle database file", key);
+        }
+        
+        CLOSE_DB(sandboxDB);
+        
+        [fileManager moveItemAtPath:sandboxDBPathTemp toPath:sandboxDBPath error:nil];
+        
+        return;
+    } else if([self.openDelegate respondsToSelector:@selector(SQLiteOpenHelper:creatingDB:)]){
+        // create a new database
+        sandboxDB = [self _openDatabaseInPath:sandboxDBPath withKey:key];
         if (sandboxDB == NULL) {
             THROW_EXCEPTION(@"Failed to create database file", key);
         }
         
-        BOOL shouldSave = NO;
-        if([self.openDelegate respondsToSelector:@selector(SQLiteOpenHelper:creatingDB:)]){
-            shouldSave = [self.openDelegate SQLiteOpenHelper:self creatingDB:sandboxDB];
-        }
-        
+        BOOL shouldSave = [self.openDelegate SQLiteOpenHelper:self creatingDB:sandboxDB];
         CLOSE_DB(sandboxDB);
-        
-        if(!shouldSave){
-            [fileManager removeItemAtPath:fullPath error:nil];
+        if (!shouldSave) {
+            [fileManager removeItemAtPath:sandboxDBPath error:nil];
+        }else {
+            return;
         }
-    }/*else if(db != NULL && bundleDB == NULL)*/
-    
-    CLOSE_DB(sandboxDB);
-    CLOSE_DB(bundleDB);
-    
-    
-    // upgrading...
-    // 心好累啊，jb requirements
-    sandboxDB = [self _openDatabaseInPath:fullPath withKey:key];
-    if (sandboxDB == NULL) {
-        THROW_EXCEPTION(@"Failed to open database file", key);
     }
     
-    int oldVersion = [self versionForDatabase:sandboxDB];
-    if (oldVersion < self.databaseVersion) {
-        if([self.openDelegate respondsToSelector:@selector(SQLiteOpenHelper:upgradingDB:fromVersion:toVersion:)]) {
-            [self.openDelegate SQLiteOpenHelper:self upgradingDB:sandboxDB fromVersion:oldVersion toVersion:self.databaseVersion];
-        }
-        
-        [self updateDatabase:sandboxDB toVersion:self.databaseVersion];
-    }
-    
-    CLOSE_DB(sandboxDB);
+    THROW_EXCEPTION(@"Failed to open database.", @"");
 }
 
 
@@ -433,7 +387,8 @@
 
 	[sqlQuery appendString:@";"];
 
-    if(sqlite3_prepare_v2(self.currentDatabase, [sqlQuery UTF8String], -1, statement, NULL) == SQLITE_OK){
+    int x= sqlite3_prepare_v2(self.currentDatabase, [sqlQuery UTF8String], -1, statement, NULL);
+    if( x == SQLITE_OK){
         return contentValues;
     }else{
         return nil;

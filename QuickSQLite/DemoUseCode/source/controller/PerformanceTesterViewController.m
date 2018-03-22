@@ -127,7 +127,7 @@
             NSLog(@"%@",p.name);
         }
         
-        NSLog(@"%d %d", all1.count, all2.count);
+        NSLog(@"Record inserted: %d %d", all1.count, all2.count);
     });
     
 
